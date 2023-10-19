@@ -26,7 +26,7 @@ See below for detailed steps
 3. Set up a virtual environment (see below)
 4. Run the Flask server with `python3 main.py`
 5. Navigate to the URL given in the terminal.
-   - By default, it should be http://localhost:5000/. Simply open this URL in your preferred browser.
+   - By default, it should be http://127.0.0.1:5000. Simply open this URL in your preferred browser.
 
 ### Setting up a virtual environment
 
@@ -57,3 +57,9 @@ After the first time - run the following to activate the virtual environment:
 - [Inspiration for practical lesson / prevention format](https://www.hacksplaining.com/exercises/sql-injection)
 - [Repo](https://github.com/realsidg/sqlInjection) used to help implement Flask / SQLite3 for SQLI and XSS
 - Some challenge ideas from [COMP6841 wargames](https://comp6841.quoccabank.com/challenges)
+
+### SQLI1
+- https://flask.palletsprojects.com/en/3.0.x/quickstart/#sessions
+- https://github.com/realsidg/sqlInjection/blob/master/main.py
+- COMP6841 Quoccabank sqli2.py
+- https://docs.python.org/3/library/sqlite3.html

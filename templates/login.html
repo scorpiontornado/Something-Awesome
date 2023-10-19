@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  {{ super() }}
+
+  <form method="post">
+    <p>Username: <input type="text" name="username"></p>
+    <p>Password: <input type="text" name="password"></p>
+    <p><input class="button" type="submit" value="Login"></p>
+  </form>
+
+  {% if error %}
+  <p>{{ error|safe }}</p>
+  {% endif %}
+{% endblock %}
