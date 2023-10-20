@@ -10,7 +10,22 @@
 //   sqli1_pass_out.textContent = sqli1_pass_in.textContent;
 // });
 
-function mirror(in_id, out_id) {
-  console.log(in_id, out_id);
-  document.getElementById(out_id).textContent = document.getElementById(in_id).value;
+/* -------------------- */
+
+// Mirrors the contents of the form input in_id to the element out_id.
+// function mirror(in_id, out_id) {
+//   console.log(in_id, out_id);
+//   document.getElementById(out_id).textContent = document.getElementById(in_id).value;
+//   hljs.highlightAll();
+// }
+
+/* Stage-specific functions */
+
+function sqli1(user_id, pass_id, out_id) {
+  const username = document.getElementById(user_id).value;
+  const password = document.getElementById(pass_id).value;
+
+  document.getElementById(out_id).textContent = `SELECT username FROM Users WHERE username='${username}' AND password='${password}'`;
+
+  hljs.highlightAll();
 }

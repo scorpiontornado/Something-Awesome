@@ -1,11 +1,20 @@
 {% extends "layout.html" %}
 
+{% block head %}
+  {{ super() }}
+
+  <!-- https://highlightjs.org/ - SQL highlighting -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='highlight/styles/default.min.css') }}">
+  <script src="static/highlight/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+{% endblock %}
+
 {% block content %}
   {{ super() }}
 
   <form method="post">
-    <p>Username: <input type="text" name="username" id="sqli1_form_username" oninput="mirror('sqli1_form_username', 'sqli1_query_username')"></p>
-    <p>Password: <input type="text" name="password" id="sqli1_form_password" oninput="mirror('sqli1_form_password', 'sqli1_query_password')"></p>
+    <p>Username: <input type="text" name="username" id="sqli1_form_username" oninput="sqli1('sqli1_form_username', 'sqli1_form_password', 'sqli1_query')"></p>
+    <p>Password: <input type="text" name="password" id="sqli1_form_password" oninput="sqli1('sqli1_form_username', 'sqli1_form_password', 'sqli1_query')"></p>
     <p><input class="button" type="submit" value="Login"></p>
   </form>
 
@@ -13,10 +22,10 @@
   <p>{{ error|safe }}</p>
   {% endif %}
 
-  <div id="sqli1_query">
-    <h2>SQL query to be executed</h2>
-    <p>SELECT username FROM Users WHERE username='<span id="sqli1_query_username" class="payload"></span>' AND password='<span id="sqli1_query_password" class="payload"></span>'</p>
-  </div>
+  <h2>SQL query to be executed</h2>
+  <pre><code id="sqli1_query">
+    SELECT username FROM Users WHERE username='' AND password=''
+  </code></pre>
 
   <!-- <script src="{{ url_for('static', filename='script.js') }}" type="text/javascript"></script> -->
 {% endblock %}
