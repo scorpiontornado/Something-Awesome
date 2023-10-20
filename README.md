@@ -2,6 +2,8 @@
 
 My UNSW COMP6841 Self-Selected Project - AKA "Something Awesome". I chose to complete this project on web security, creating an intentionally vulnerable web-app as a teaching tool.
 
+Flags are of the form `SAP{...}` (for Something Awesome Project). Please don't cheat and look at the hardcoded values (of the flags, database create/insert statements etc). Later iterations would somehow redact this or move to a different file to make it less easy to cheat.
+
 ### (Intentional) Vulnerabilities
 
 - Basic SQLI (work in progress)
@@ -59,6 +61,7 @@ After the first time - run the following to activate the virtual environment:
 - Some challenge ideas from [COMP6841 wargames](https://comp6841.quoccabank.com/challenges)
 
 ### SQLI1
+
 - https://flask.palletsprojects.com/en/3.0.x/quickstart/#sessions
 - https://github.com/realsidg/sqlInjection/blob/master/main.py
 - COMP6841 Quoccabank sqli2.py

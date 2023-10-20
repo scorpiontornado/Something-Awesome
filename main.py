@@ -12,7 +12,9 @@ app = Flask(__name__)
 app.config[
     "SECRET_KEY"
 ] = "9d856fb340bb797805e0ccc5e5015837fb5725eb7d22925609035bfb929bbac5"
-app.config["FLAG"] = "SAP{BOBBY_TABLES}"  # Would redact if actually used for teaching
+app.config["flags"] = {
+    "sqli1": "SAP{BOBBY_TABLES}"  # Would redact if actually used for teaching
+}
 
 
 @app.route("/")
@@ -23,11 +25,14 @@ def index():
 @app.route("/sqli1")
 def sqli1():
     return render_template(
-        "sqli1.html", username=session.get("username"), heading="SQLI 1"
+        "sqli1.html",
+        heading="SQLI 1",
+        username=session.get("username"),
+        flag=app.config["flags"]["sqli1"],
     )
 
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/sqli1/login", methods=["GET", "POST"])
 def login():
     error = None
 
@@ -48,10 +53,10 @@ def login():
             session["username"] = res[0]
             return redirect(url_for("sqli1"))
 
-    return render_template("login.html", error=error, heading="Login")
+    return render_template("login.html", heading="Login", error=error)
 
 
-@app.route("/logout")
+@app.route("/sqli1/logout")
 def logout():
     # Remove the username from the session if it's there
     session.pop("username", None)
@@ -60,20 +65,21 @@ def logout():
 
 @app.errorhandler(NotFound)
 def page_not_found_error(error):
-    return render_template("error.html", error=error, heading="Error"), NotFound.code
+    return render_template("error.html", heading="Error", error=error), NotFound.code
 
 
 @app.errorhandler(InternalServerError)
 def internal_server_error(error):
     return (
-        render_template("error.html", error=error, heading="Error"),
+        render_template("error.html", heading="Error", error=error),
         InternalServerError.code,
     )
 
 
 ### Database code
-def execute(query, parameters=()):
-    con = sqlite3.connect("sqli1.db")
+def execute(con, query, parameters=()):
+    # Moved database connection outside, as fetchone() is a Cursor method & Cursors close when their
+    # parent connection does. Not closing would slow down the system over time.
     cur = con.cursor()
 
     try:
@@ -84,7 +90,6 @@ def execute(query, parameters=()):
         print(e)
         res = None
 
-    # con.close() # TODO - close somehow?? Idk, maybe make con/cur outside?
     return res
 
 
@@ -93,17 +98,21 @@ def execute(query, parameters=()):
 # - None when there are no results for the query (i.e., no rows with the given username/password)
 # - The username of the first row to fulfill the condition (matching username/password)
 def login(username, password):
-    #! VULNERABLE TO SQLI - should use placeholders instead of string formatting:
-    # https://docs.python.org/3/library/sqlite3.html#sqlite3-placeholders
-    print(
-        "Executing...",
-        f"SELECT username FROM Users WHERE username='{username}' AND password='{password}'",
-    )  # TODO remove
-    res = execute(
-        f"SELECT username FROM Users WHERE username='{username}' AND password='{password}'"
-    )
+    # "with" will auto-close the connection
+    with sqlite3.connect("sqli1.db") as con:
+        #! VULNERABLE TO SQLI - should use placeholders instead of string formatting:
+        # https://docs.python.org/3/library/sqlite3.html#sqlite3-placeholders
+        print(
+            "Executing...",
+            f"SELECT username FROM Users WHERE username='{username}' AND password='{password}'",
+        )  # Debugging, can remove
 
-    return res.fetchone() if res else False
+        res = execute(
+            con,
+            f"SELECT username FROM Users WHERE username='{username}' AND password='{password}'",
+        )
+
+        return res.fetchone() if res else False
 
 
 if __name__ == "__main__":
