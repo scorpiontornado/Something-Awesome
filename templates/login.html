@@ -4,12 +4,19 @@
   {{ super() }}
 
   <form method="post">
-    <p>Username: <input type="text" name="username"></p>
-    <p>Password: <input type="text" name="password"></p>
+    <p>Username: <input type="text" name="username" id="sqli1_form_username"></p>
+    <p>Password: <input type="text" name="password" id="sqli1_form_password"></p>
     <p><input class="button" type="submit" value="Login"></p>
   </form>
 
   {% if error %}
   <p>{{ error|safe }}</p>
   {% endif %}
+
+  <div id="sqli1_query">
+    <h2>SQL query to be executed</h2>
+    <p>SELECT username FROM Users WHERE username='<span id="sqli1_query_username"></span>' AND password='<span id="sqli1_query_password"></span>'</p>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}" type="text/javascript"></script>
 {% endblock %}

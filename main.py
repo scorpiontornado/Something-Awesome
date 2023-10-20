@@ -17,12 +17,14 @@ app.config["FLAG"] = "SAP{BOBBY_TABLES}"  # Would redact if actually used for te
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", heading="Index")
 
 
 @app.route("/sqli1")
 def sqli1():
-    return render_template("sqli1.html", username=session.get("username"))
+    return render_template(
+        "sqli1.html", username=session.get("username"), heading="SQLI 1"
+    )
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -33,6 +35,7 @@ def login():
         # Modified from COMP6841 Quoccabank SQLI 2
         username, password = request.form.get("username"), request.form.get("password")
         res = login(username, password)
+        print(res)
 
         # Invalid query
         if res is False:
@@ -45,7 +48,7 @@ def login():
             session["username"] = res[0]
             return redirect(url_for("sqli1"))
 
-    return render_template("login.html", error=error)
+    return render_template("login.html", error=error, heading="Login")
 
 
 @app.route("/logout")
@@ -57,16 +60,19 @@ def logout():
 
 @app.errorhandler(NotFound)
 def page_not_found_error(error):
-    return render_template("error.html", error=error), NotFound.code
+    return render_template("error.html", error=error, heading="Error"), NotFound.code
 
 
 @app.errorhandler(InternalServerError)
 def internal_server_error(error):
-    return render_template("error.html", error=error), InternalServerError.code
+    return (
+        render_template("error.html", error=error, heading="Error"),
+        InternalServerError.code,
+    )
 
 
 ### Database code
-def execute(query, parameters=None):
+def execute(query, parameters=()):
     con = sqlite3.connect("sqli1.db")
     cur = con.cursor()
 
@@ -78,7 +84,7 @@ def execute(query, parameters=None):
         print(e)
         res = None
 
-    con.close()
+    # con.close() # TODO - close somehow?? Idk, maybe make con/cur outside?
     return res
 
 
@@ -89,20 +95,27 @@ def execute(query, parameters=None):
 def login(username, password):
     #! VULNERABLE TO SQLI - should use placeholders instead of string formatting:
     # https://docs.python.org/3/library/sqlite3.html#sqlite3-placeholders
+    print(
+        "Executing...",
+        f"SELECT username FROM Users WHERE username='{username}' AND password='{password}'",
+    )  # TODO remove
     res = execute(
         f"SELECT username FROM Users WHERE username='{username}' AND password='{password}'"
     )
+
     return res.fetchone() if res else False
 
 
 if __name__ == "__main__":
+    print("Connecting to database...")
+
     con = sqlite3.connect("sqli1.db")
 
     try:
         cur = con.cursor()
         cur.execute("DROP TABLE IF EXISTS Users")
         cur.execute(
-            "CREATE TABLE Users(id INTEGER PRIMARY KEY AUTOINCREMENT, username, password, is_admin)"
+            "CREATE TABLE Users(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, is_admin INTEGER)"
         )
 
         # An example of using placeholders rather than format strings
@@ -111,8 +124,18 @@ if __name__ == "__main__":
             ("admin", "correcthorsebatterystaple", "TRUE"),
             ("Nick", "hunter2", "FALSE"),
         ]
-        cur.executemany("INSERT INTO Users(username, password) VALUES(?, ?)", data)
+        cur.executemany(
+            "INSERT INTO Users(username, password, is_admin) VALUES(?, ?, ?)", data
+        )
+
         con.commit()
+
+        # print(
+        #     "test",
+        #     cur.execute(
+        #         f"SELECT username FROM Users WHERE username='admin' AND password='correcthorsebatterystaple'"
+        #     ).fetchone(),
+        # )  # TESTING - returns: test ('admin',)
     except Exception as e:
         print("Error creating SQLI 1 database:", e)
         con.rollback()
