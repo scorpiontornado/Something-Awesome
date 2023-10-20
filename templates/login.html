@@ -4,17 +4,16 @@
   {{ super() }}
 
   <!-- https://highlightjs.org/ - SQL highlighting -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='highlight/styles/default.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='highlight/styles/panda-syntax-dark.min.css') }}">
   <script src="{{ url_for('static', filename='highlight/highlight.min.js') }}"></script>
-  <script>hljs.highlightAll();</script>
 {% endblock %}
 
 {% block content %}
   {{ super() }}
 
   <form method="post">
-    <p>Username: <input type="text" name="username" id="sqli1_form_username" oninput="sqli1('sqli1_form_username', 'sqli1_form_password', 'sqli1_query')"></p>
-    <p>Password: <input type="text" name="password" id="sqli1_form_password" oninput="sqli1('sqli1_form_username', 'sqli1_form_password', 'sqli1_query')"></p>
+    <p>Username: <input type="text" name="username" id="sqli1_form_username" oninput="sqli1()"></p>
+    <p>Password: <input type="text" name="password" id="sqli1_form_password" oninput="sqli1()"></p>
     <p><input class="button" type="submit" value="Login"></p>
   </form>
 
@@ -26,6 +25,5 @@
   <pre><code id="sqli1_query">
     SELECT username FROM Users WHERE username='' AND password=''
   </code></pre>
-
-  <!-- <script src="{{ url_for('static', filename='script.js') }}" type="text/javascript"></script> -->
+  <script>hljs.highlightAll();</script>
 {% endblock %}

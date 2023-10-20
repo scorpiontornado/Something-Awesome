@@ -21,11 +21,11 @@
 
 /* Stage-specific functions */
 
-function sqli1(user_id, pass_id, out_id) {
-  const username = document.getElementById(user_id).value;
-  const password = document.getElementById(pass_id).value;
+function sqli1() {
+  const username = document.getElementById('sqli1_form_username').value;
+  const password = document.getElementById('sqli1_form_password').value;
 
-  document.getElementById(out_id).textContent = `SELECT username FROM Users WHERE username='${username}' AND password='${password}'`;
+  document.getElementById('sqli1_query').textContent = `SELECT username FROM Users WHERE username='${username}' AND password='${password}'`;
 
   hljs.highlightAll();
 }
