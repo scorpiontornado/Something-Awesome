@@ -2,5 +2,10 @@
 
 {% block content %}
   {{ super() }}
-  <h2><a href = "{{ url_for('sqli1')}}">SQLI 1</a></h2>
+  <div class="index">
+    <h2>Activities</h2>
+    <ul>
+      <li><a href = "{{ url_for('sqli1')}}">SQLI 1</a></li>
+    </ul>
+  </div>
 {% endblock %}

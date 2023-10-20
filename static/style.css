@@ -37,7 +37,7 @@ h1 {
 }
 
 h2 {
-  font-size: 4em;
+  font-size: 3em;
 }
 
 p, a, code {
@@ -46,10 +46,19 @@ p, a, code {
 
 code {
   width: 50em;
+  border-radius: .4rem;
 }
 
 a {
   color: darkcyan;
+}
+
+.index {
+  font-size: 1.5em; /* Appears to stack */
+}
+
+.index h2 {
+  margin-bottom: 0em; /* Without this, there's a huge gap on index.html */
 }
 
 .button {
