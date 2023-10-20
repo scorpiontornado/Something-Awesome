@@ -15,6 +15,15 @@ body {
   margin-left: 30px;
 }
 
+span {
+  margin: 0px;
+  padding: 0px;
+}
+
+.payload {
+  color: #567ddb;
+}
+
 /* https://stackoverflow.com/questions/29578633/how-do-i-place-a-button-next-to-a-heading/29578663 */
 
 #h {
