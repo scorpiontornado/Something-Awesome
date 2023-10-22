@@ -47,7 +47,7 @@ def login():
             error = "<strong>Error!</strong> Invalid SQL query"
         # No results for the query
         elif res is None:
-            error = "Invalid username/password"
+            error = "Incorrect username/password"
         # Successful login
         else:
             session["username"] = res[0]
