@@ -15,9 +15,15 @@
 {% block content %}
   {{ super() }}
 
-  <div class="container-fluid">
+  <div class="container">
     <div class="row">
       <div class="col">
+        <h2>Your Task</h2> <!-- Todo: turn into dropdown/accordion? -->
+        <There>SQLI 1 is a simple SQL injection challenge. There are two fields: username and password - both are vulnerable to SQL injection. Try to log in as any user!</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col d-flex justify-content-center">
         <form method="post">
           <p>
             <label for="sqli1_form_username">Username:</label>
@@ -34,14 +40,14 @@
           <p class="error">{{ error|safe }}</p>
         {% endif %}
       </div>
-
-      <div class="col-6">
-        <h2>SQL query to be executed</h2>
+    </div>
+    <div class="row">
+      <div class="col-8">
+        <h2>SQL Query Viewer</h2>
         <pre><code class="code_block" id="sqli1_query"></code></pre>
         <script>sqli1()</script>
       </div>
-
-      <div class="col">
+      <div class="col-4">
         <h2>Hints</h2>
         {% for hint in hints %}
           <h3>Hint {{ loop.index }}</h3>
@@ -49,12 +55,8 @@
         {% endfor %}
       </div>
     </div>
-    <div class="row">
-      <div class="col">
-        <h2>Your task</h2>
-        <p>SQLI 1 is a simple SQL injection challenge. The goal is to log in as any user.</p>
-        <p>There are two fields: username and password. Both are vulnerable to SQL injection - although in reality, the password field would be hashed (and thus not vulnerable to SQL injection).</p>
-      </div>
-    </div>
+  </div>
+
+  <div class="container-fluid padded">
   </div>
 {% endblock %}
