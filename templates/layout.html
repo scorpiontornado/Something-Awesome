@@ -1,5 +1,6 @@
 <!-- https://pythonhosted.org/Flask-Bootstrap/basic-usage.html -->
-{% extends "bootstrap/base.html" %}
+<!-- Migrated to https://bootstrap-flask.readthedocs.io/en/stable/ -->
+{% extends "base.html" %}
 {% block head %}
   {{ super() }}
   <!-- Must put scripts here, not in the "scripts" block, as the scripts block is rendered at the end of the body -->
@@ -17,7 +18,8 @@
   
 {% endblock %}
 
-{% block navbar %}
+{% block content %}
+  {{ super() }}
   <!-- <div id="h">
     <h1>{{ heading }}</h1>
   </div> -->
@@ -27,7 +29,4 @@
       <h1 class="display-4">{{ heading }}</h1>
     </div>
   </div>
-{% endblock %}
-
-{% block content %}
 {% endblock %}
