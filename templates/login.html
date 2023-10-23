@@ -18,10 +18,16 @@
   </form>
 
   {% if error %}
-  <p class="error">{{ error|safe }}</p>
+    <p class="error">{{ error|safe }}</p>
   {% endif %}
 
   <h2>SQL query to be executed</h2>
-  <pre><code id="sqli1_query"></code></pre>
+  <pre><code class="code_block" id="sqli1_query"></code></pre>
   <script>sqli1()</script>
+
+  <h2>Hints</h2>
+  {% for hint in hints %}
+    <h3>Hint {{ loop.index }}</h3>
+    <p>{{ hint|safe }}</p>
+  {% endfor %}
 {% endblock %}

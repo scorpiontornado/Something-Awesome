@@ -35,6 +35,30 @@ def sqli1():
 @app.route("/sqli1/login", methods=["GET", "POST"])
 def login():
     error = None
+    hints = [
+        "It's always good to start by testing the intended behaviour of a system. Try logging in with a random username and password",
+        "Next, its time to think like an attacker - what are things you could do to break it?",
+        "Try entering a single quote (<code>'</code>) in the username or password field",
+        (
+            "Now that we've successfully closed off the string, we can modify the sql query to do whatever we want. "
+            "How would you get the <code>WHERE</code> condition to always be true? "
+            "This would match all rows (users) in the table. Then, the website would log you in as the first user - regardless of their username/password."
+        ),
+        "<code>1=1</code>, <code>'1'='1'</code> etc. all evaluate to true. What if tried to OR this with the rest of the condition?",
+        (
+            "One way of doing this is entering: <code>' OR '1'='1</code> into both the username and password fields. "
+            "How does this affect the query that gets executed? "
+            "As a challenge, try to figure out how to get the flag by only inserting into the username field, leaving the password blank."
+        ),
+        "Another way of dealing with that extra <code>'</code> is to comment out the rest of the query. In SQL, comments start with <code>--</code>.",
+        (
+            "We first want to close off the string using a single quote. "
+            "Next, we want to make the <code>WHERE</code> condition always true to match every user, so we enter <code>OR 1=1</code>. "
+            "Many SQL implementations require queries to be terminated with a semicolon, so its good practice to include. "
+            "Finally, we comment out the rest of the query to make it valid - anything after the two hyphens will be ignored. "
+            "Our final payload (that we enter into the username field) is thus: <code>' OR 1=1; -- </code>"
+        ),
+    ]
 
     if request.method == "POST":
         # Modified from COMP6841 Quoccabank SQLI 2
@@ -53,7 +77,7 @@ def login():
             session["username"] = res[0]
             return redirect(url_for("sqli1"))
 
-    return render_template("login.html", heading="Login", error=error)
+    return render_template("login.html", heading="Login", error=error, hints=hints)
 
 
 @app.route("/sqli1/logout")
@@ -118,7 +142,7 @@ def login(username, password):
 if __name__ == "__main__":
     print("Connecting to database...")
 
-    con = sqlite3.connect("sqli1.db")
+    con = sqlite3.connect("sqli1.db")  # Will create db if doesn't exist
 
     try:
         cur = con.cursor()

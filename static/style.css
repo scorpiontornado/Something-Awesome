@@ -44,7 +44,7 @@ p, a, code {
   font-size: 2em;
 }
 
-code {
+.code_block {
   width: 50em;
   border-radius: .4rem;
 }
