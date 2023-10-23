@@ -32,6 +32,18 @@ body {
   display: flex;
   align-items: center;
 }
+*/
+
+.jumbotron {
+  background-color: grey;
+  color: white;
+  padding: 2em 0 !important; /* was 48px 0px */
+  margin-bottom: 2em !important; /* was 30px */
+}
+
+.jumbotron h1.display-4 {
+  margin: 10px 0 !important; /* was 20px 0px 10px */
+}
 
 /* h1 {
   font-size: 60px;

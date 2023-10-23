@@ -1,5 +1,10 @@
 <!-- https://pythonhosted.org/Flask-Bootstrap/basic-usage.html -->
 {% extends "bootstrap/base.html" %}
+{% block head %}
+  {{ super() }}
+  <!-- Must put scripts here, not in the "scripts" block, as the scripts block is rendered at the end of the body -->
+  <script src="{{ url_for('static', filename='script.js') }}" type="text/javascript"></script>
+{% endblock %}
 {% block title %} {{ heading }} - Nick L SAP {% endblock %}
 
 {% block styles %}
@@ -9,7 +14,7 @@
 
 {% block scripts %}
   {{ super() }}
-  <script src="{{ url_for('static', filename='script.js') }}" type="text/javascript"></script>
+  
 {% endblock %}
 
 {% block navbar %}
