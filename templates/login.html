@@ -2,38 +2,59 @@
 
 {% block head %}
   {{ super() }}
+  <!-- https://highlightjs.org/ - SQL highlighting -->
+  <script src="{{ url_for('static', filename='highlight/highlight.min.js') }}"></script>
+{% endblock %}
 
+{% block styles %}
+  {{ super() }}
   <!-- https://highlightjs.org/ - SQL highlighting -->
   <link rel="stylesheet" href="{{ url_for('static', filename='highlight/styles/panda-syntax-dark.min.css') }}">
-  <script src="{{ url_for('static', filename='highlight/highlight.min.js') }}"></script>
 {% endblock %}
 
 {% block content %}
   {{ super() }}
 
-  <form method="post">
-    <p>
-      <label for="sqli1_form_username">Username:</label>
-      <input type="text" name="username" id="sqli1_form_username" placeholder="Enter Username" oninput="sqli1()">
-    </p>
-    <p>
-      <label for="sqli1_form_password">Password:</label>
-      <input type="text" name="password" id="sqli1_form_password" placeholder="Enter Password" oninput="sqli1()">
-    </p>
-    <p><input class="button" type="submit" value="Login"></p>
-  </form>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <form method="post">
+          <p>
+            <label for="sqli1_form_username">Username:</label>
+            <input type="text" name="username" id="sqli1_form_username" placeholder="Enter Username" oninput="sqli1()">
+          </p>
+          <p>
+            <label for="sqli1_form_password">Password:</label>
+            <input type="text" name="password" id="sqli1_form_password" placeholder="Enter Password" oninput="sqli1()">
+          </p>
+          <p><input class="button" type="submit" value="Login"></p>
+        </form>
+      
+        {% if error %}
+          <p class="error">{{ error|safe }}</p>
+        {% endif %}
+      </div>
 
-  {% if error %}
-    <p class="error">{{ error|safe }}</p>
-  {% endif %}
+      <div class="col-6">
+        <h2>SQL query to be executed</h2>
+        <pre><code class="code_block" id="sqli1_query"></code></pre>
+        <script>sqli1()</script>
+      </div>
 
-  <h2>SQL query to be executed</h2>
-  <pre><code class="code_block" id="sqli1_query"></code></pre>
-  <script>sqli1()</script>
-
-  <h2>Hints</h2>
-  {% for hint in hints %}
-    <h3>Hint {{ loop.index }}</h3>
-    <p>{{ hint|safe }}</p>
-  {% endfor %}
+      <div class="col">
+        <h2>Hints</h2>
+        {% for hint in hints %}
+          <h3>Hint {{ loop.index }}</h3>
+          <p>{{ hint|safe }}</p>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h2>Your task</h2>
+        <p>SQLI 1 is a simple SQL injection challenge. The goal is to log in as any user.</p>
+        <p>There are two fields: username and password. Both are vulnerable to SQL injection - although in reality, the password field would be hashed (and thus not vulnerable to SQL injection).</p>
+      </div>
+    </div>
+  </div>
 {% endblock %}
