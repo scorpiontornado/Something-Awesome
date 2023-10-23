@@ -12,8 +12,14 @@
   {{ super() }}
 
   <form method="post">
-    <p>Username: <input type="text" name="username" id="sqli1_form_username" oninput="sqli1()"></p>
-    <p>Password: <input type="text" name="password" id="sqli1_form_password" oninput="sqli1()"></p>
+    <p>
+      <label for="sqli1_form_username">Username:</label>
+      <input type="text" name="username" id="sqli1_form_username" placeholder="Enter Username" oninput="sqli1()">
+    </p>
+    <p>
+      <label for="sqli1_form_password">Password:</label>
+      <input type="text" name="password" id="sqli1_form_password" placeholder="Enter Password" oninput="sqli1()">
+    </p>
     <p><input class="button" type="submit" value="Login"></p>
   </form>
 

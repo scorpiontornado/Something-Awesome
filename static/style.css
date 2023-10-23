@@ -54,15 +54,41 @@ p, a, code {
 }
 
 form {
-  border-color: grey;
+  border-color: #404040; /* HSL 0, 0%, 25% */
   border-style: solid;
   border-radius: calc(.4rem * 1.6);
-  padding: 1em 3em; /* Top/bottom = 3em - 2em (margin of p) */ 
+  padding: 2.5em 5.5em 2.5em 3em; /* Top right bottom left */
   width: 30em; /* TODO Would eventually just be the default, 100%, when swapped to bootstrap/flexbox */
+  display: table; /* https://stackoverflow.com/questions/4309950/how-to-align-input-forms-in-html */
 }
 
-form p, form a {
+label, input, form a {
   font-size: 20px;
+}
+
+/* Align form elements: https://stackoverflow.com/questions/4309950/how-to-align-input-forms-in-html */
+form p {
+  display: table-row;
+}
+
+form label {
+  display: table-cell;
+  padding: .5em;
+}
+
+form input {
+  display: table-cell;
+  font-size: 0.9em;
+  padding: 0.5em 1.5em 0.5em 0.8em;
+  background-color: #f6f6f6;
+  border-width: 0.1px;
+  border-radius: .4rem;
+}
+
+form .button {
+  margin: 1em 0 .5em 0;
+  position: relative;
+  left: .5em;
 }
 
 /* Select code blocks that don't have <pre> as a parent */
