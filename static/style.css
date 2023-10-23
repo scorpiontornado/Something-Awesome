@@ -3,7 +3,7 @@
 /* from https://www.w3schools.com/w3css/4/w3.css and https://www.w3schools.com/cssref/css_websafe_fonts.asp */
 
 html {
-  /* font-size: 62.5%; /* 1rem = 10px (if font-size hasn't been changed, 1rem will also = 10px */
+  font-size: 62.5%; /* 1rem = 10px (if font-size hasn't been changed, 1rem will also = 10px */
 }
 
 body {
@@ -50,6 +50,18 @@ h3 {
 }
 
 p, a, code {
+  font-size: 16px;
+}
+
+form {
+  border-color: grey;
+  border-style: solid;
+  border-radius: calc(.4rem * 1.6);
+  padding: 1em 3em; /* Top/bottom = 3em - 2em (margin of p) */ 
+  width: 30em; /* TODO Would eventually just be the default, 100%, when swapped to bootstrap/flexbox */
+}
+
+form p, form a {
   font-size: 20px;
 }
 
@@ -61,8 +73,8 @@ code:not(pre) {
 }
 
 .code_block {
-  width: 50rem;
-  border-radius: calc(.4rem * 1.6rem); /* 1.6rem because .4 assumed 1rem = 16px */
+  width: 75rem;
+  border-radius: calc(.4rem * 1.6); /* Note: * 1.6 because .4 assumed that 1rem = 16px */
 }
 
 a {
@@ -91,7 +103,7 @@ a {
   border: 1px solid transparent;
   padding: 6px 14px;
   font-size: 16px;
-  border-radius: calc(.25rem * 1.6rem);
+  border-radius: calc(.25rem * 1.6); /* Note: * 1.6 because .25 assumed that 1rem = 16px */
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   /* :hover {
       color: #fff;
