@@ -1,10 +1,12 @@
 {% extends "layout.html" %}
 
-{% block head %}
+<!-- https://highlightjs.org/ - SQL highlighting -->
+{% block styles %}
   {{ super() }}
-
-  <!-- https://highlightjs.org/ - SQL highlighting -->
   <link rel="stylesheet" href="{{ url_for('static', filename='highlight/styles/panda-syntax-dark.min.css') }}">
+{% endblock %}
+{% block scripts %}
+  {{ super() }}
   <script src="{{ url_for('static', filename='highlight/highlight.min.js') }}"></script>
 {% endblock %}
 
