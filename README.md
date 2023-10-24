@@ -19,7 +19,7 @@ The flags (things you need to find) are of the form `SAP{...}` (for Something Aw
 - Authentication vulnerabilities involving cookies (logout, but not invalidated. Cookie expired but can change it, cookie has with sever key but not validated)
 - LFI
 
-Other ideas - OWASP Top 10, DVWA, UNSW's COMP6841 content.
+Other ideas - OWASP Top 10, DVWA, UNSW's COMP6843 content.
 
 ## Usage
 

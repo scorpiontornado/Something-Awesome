@@ -140,7 +140,7 @@ a {
   margin-bottom: 0rem; /* Without this, there's a huge gap on index.html */
 }
 
-.button {
+form .button {
   /* Modified from Bootstrap button: https://copy-paste-css.com/ */
   /* (TODO: actually use Bootstrap button) */
   cursor: pointer;
