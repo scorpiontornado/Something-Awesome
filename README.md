@@ -2,7 +2,9 @@
 
 My UNSW COMP6841 Self-Selected Project - AKA "Something Awesome". I chose to complete this project on web security, creating an intentionally vulnerable web-app as a teaching tool.
 
-Flags are of the form `SAP{...}` (for Something Awesome Project). Please don't cheat and look at the hardcoded values (of the flags, database create/insert statements etc). Later iterations would somehow redact this or move to a different file to make it less easy to cheat.
+The main problem I'm trying to solve is that when beginners are presented with a CTF (e.g. a plain login screen), they're often unsure as to how to begin. This project aims to dispel some of the mystery surrounding cybersecurity by guiding them through a few common web attacks, preparing them for traditional CTFs.
+
+The flags (things you need to find) are of the form `SAP{...}` (for Something Awesome Project). Please don't cheat and look at the hardcoded values (of the flags, database create/insert statements etc). Later iterations would somehow redact this or move to a different file to make it less easy to cheat.
 
 ### (Intentional) Vulnerabilities
 
