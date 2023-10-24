@@ -2,11 +2,13 @@ import sqlite3
 from flask import Flask, request, render_template, session, redirect, url_for
 from werkzeug.exceptions import NotFound, InternalServerError
 
-# https://pythonhosted.org/Flask-Bootstrap/basic-usage.html
-from flask_bootstrap import Bootstrap
+# https://pythonhosted.org/Flask-Bootstrap/basic-usage.html --> Bootstrap 3
+# https://bootstrap-flask.readthedocs.io/en/stable/migrate/ --> Turns out it was using Bootstrap 4.6.1
+# https://bootstrap-flask.readthedocs.io/en/stable/api/#flask_bootstrap.Bootstrap5 --> Bootstrap 5
+from flask_bootstrap import Bootstrap5
 
 app = Flask(__name__)
-Bootstrap(app)
+bootstrap = Bootstrap5(app)
 
 # Secret key: used to sign the session cookies cryptographically. This means that the user could
 # look at the contents of the cookie, but not modify it without knowing this secret key.
