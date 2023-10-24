@@ -74,11 +74,10 @@ form {
   border-color: #404040; /* HSL 0, 0%, 25% */
   border-style: solid;
   border-radius: calc(.4rem * 1.6);
-  padding: 2.5em 5.5em 2.5em 3em; /* Top right bottom left */
+  padding: 2.5em 12% 2em 7%; /* Top right bottom left */
   margin-top: 1em;
   margin-bottom: 2.5em;
-  width: 30em; /* TODO Would eventually just be the default, 100%, when swapped to bootstrap/flexbox */
-  display: table; /* https://stackoverflow.com/questions/4309950/how-to-align-input-forms-in-html */
+  /* display: table; /* https://stackoverflow.com/questions/4309950/how-to-align-input-forms-in-html */
 }
 
 label, input, form a {
@@ -86,22 +85,23 @@ label, input, form a {
 }
 
 /* Align form elements: https://stackoverflow.com/questions/4309950/how-to-align-input-forms-in-html */
-form p {
+/* form p {
   display: table-row;
-}
+} */
 
 form label {
-  display: table-cell;
+  /* display: table-cell; */
   padding: .5em;
 }
 
 form input {
-  display: table-cell;
+  /* display: table-cell; */
   font-size: 0.9em;
   padding: 0.5em 1.5em 0.5em 0.8em;
   background-color: #f6f6f6;
   border-width: 0.1px;
   border-radius: .4rem;
+  height: 2.5em;
 }
 
 form .button {
@@ -126,6 +126,7 @@ code:not(pre) {
 .code_block {
   /* width: 75rem; */
   border-radius: calc(.4rem * 1.6); /* Note: * 1.6 because .4 assumed that 1rem = 16px */
+  margin-bottom: 1.5em;
 }
 
 a {
@@ -140,7 +141,7 @@ a {
   margin-bottom: 0rem; /* Without this, there's a huge gap on index.html */
 }
 
-form .button {
+input.button {
   /* Modified from Bootstrap button: https://copy-paste-css.com/ */
   /* (TODO: actually use Bootstrap button) */
   cursor: pointer;
