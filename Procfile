@@ -1,1 +1,1 @@
-web: python3 main.py
+web: gunicorn 'vulnerable_webapp_scorpiontornado:create_app()'

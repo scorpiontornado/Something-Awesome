@@ -19,23 +19,25 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     bootstrap = Bootstrap5(app)
 
-    # (Will get overridden if set in config.py)
+    # Default config (will be overridden by environment variables / test_config if they exist)
     app.config.from_mapping(
-        SECRET_KEY="dev",
         SQLI1_DATABASE=os.path.join(app.instance_path, "sqli1.db"),
-        FLAGS={"sqli1": "SAP{BOBBY_TABLES}"},
+        SECRET_KEY="dev",
+        SQLI1_FLAG="SAP{BOBBY_TABLES}",
     )
 
     if test_config is None:
-        # Load the instance config, if it exists, when not testing
-        app.config.from_pyfile("config.py", silent=True)
+        # When not testing, will load all environment variables starting with FLASK_ into the
+        #   (instance) config (overriding existing values) so that FLASK_KEY=1 means app.config["KEY"] == 1
+        # To set your own environment variables, make a .env file based on .env.example, and run:
+        #   `source .env` in terminal (done by Heroku automatically when deploying to production).
+        app.config.from_prefixed_env()
     else:
         # Load the test config if passed in
         app.config.from_mapping(test_config)
 
     # Ensure the instance folder exists
     try:
-        print(app.instance_path)
         os.makedirs(app.instance_path)
     except OSError:
         pass
@@ -51,7 +53,7 @@ def create_app(test_config=None):
             "sqli1.html",
             heading="SQLI 1",
             username=session.get("username"),
-            flag=app.config["FLAGS"]["sqli1"],
+            flag=app.config["SQLI1_FLAG"],
         )
 
     @app.route("/sqli1/login", methods=["GET", "POST"])
