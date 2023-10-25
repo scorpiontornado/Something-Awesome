@@ -1,0 +1,33 @@
+# https://setuptools.pypa.io/en/latest/userguide/quickstart.html
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["vulnerable_webapp_scorpiontornado"]
+
+[project]
+name = "vulnerable_webapp_scorpiontornado"
+version = "0.0.1"
+authors = [
+    { name="Nicholas Langford", email="langfordn@icloud.com" },
+]
+description = 'My UNSW COMP6841 Self-Selected Project - AKA "Something Awesome". I chose to complete this project on web security, creating an intentionally vulnerable web-app as a teaching tool.'
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3.0",
+    "Operating System :: OS Independent",
+]
+
+# TODO - investigate standard methods of using a pyproject.toml file - build systems?
+# For ease of use, currently following: https://stackoverflow.com/a/73600610
+# Other references: https://packaging.python.org/en/latest/tutorials/packaging-projects/
+dynamic = ["dependencies"]
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[project.urls]
+"GitHub" = "https://github.com/scorpiontornado/Something-Awesome"
+"Bug Tracker" = "https://github.com/scorpiontornado/Something-Awesome/issues"

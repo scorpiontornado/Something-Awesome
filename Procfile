@@ -1,0 +1,1 @@
+web: gunicorn 'vulnerable_webapp_scorpiontornado:create_app()'
