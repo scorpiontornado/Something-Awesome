@@ -31,7 +31,7 @@ See below for detailed steps
 3. Set up a virtual environment (see below)
 4. Run the Flask server with `gunicorn 'vulnerable_webapp_scorpiontornado:create_app()'` (see "Development")
 5. Navigate to the URL given in the terminal.
-   - By default, it should be http://127.0.0.1:5000. Simply open this URL in your preferred browser.
+   - By default, it should be http://127.0.0.1:8000 (or perhaps http://127.0.0.1:5000). Simply open this URL in your preferred browser.
 
 ### Setting up a virtual environment
 
