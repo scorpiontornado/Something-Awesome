@@ -84,6 +84,9 @@ If you want to learn more about deployment with Flask, check out these pages:
 	- [Heroku for GitHub Students](https://www.heroku.com/github-students)
 	- [Preparing a Codebase for Heroku Deployment](https://devcenter.heroku.com/articles/preparing-a-codebase-for-heroku-deployment)
 
+To build the project (to deploy elsewhere, put on [PyPI](https://pypi.org/), etc.), run `python -m build` or `python -m build --wheel` and follow the PyPI instructions.
+See [SetupTools docs](https://setuptools.pypa.io/en/latest/userguide/quickstart.html) and [this Flask docs page](https://flask.palletsprojects.com/en/2.3.x/tutorial/deploy/) for more info on both. I'm not entirely sure why you'd use one or the other, but they seem to do roughly the same thing. For info about publishing to [PyPI](https://pypi.org/), see [here](https://twine.readthedocs.io/en/stable/index.html).
+
 ## Main sources of inspiration
 
 - Initial inspiration - [DVWA](https://github.com/digininja/DVWA)

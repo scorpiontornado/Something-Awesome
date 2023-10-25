@@ -1,3 +1,11 @@
+# https://setuptools.pypa.io/en/latest/userguide/quickstart.html
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["vulnerable_webapp_scorpiontornado"]
+
 [project]
 name = "vulnerable_webapp_scorpiontornado"
 version = "0.0.1"
