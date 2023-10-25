@@ -162,5 +162,22 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-# Extra files
+### Extra files
 .DS_Store
+config.py
+
+# https://flask.palletsprojects.com/en/3.0.x/tutorial/layout/
+.venv/
+
+*.pyc
+__pycache__/
+
+instance/
+
+.pytest_cache/
+.coverage
+htmlcov/
+
+dist/
+build/
+*.egg-info/

@@ -44,15 +44,15 @@ cd Something-Awesome
 Next, set up the virtual environment. The first time you do this, run the following to create and activate a new virtual environment and install the necessary packages:
 
 ```
-python3 -m venv venv
-. venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
 After the first time - run the following to activate the virtual environment:
 
 ```
-. venv/bin/activate
+source .venv/bin/activate
 ```
 
 ## Main sources of inspiration

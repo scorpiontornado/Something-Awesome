@@ -39,12 +39,13 @@
               </p>
               <p class="row"><input class="col-3 button" type="submit" value="Login"></p>
             </form>
-          
-            {% if error %}
-              <p class="error">{{ error|safe }}</p>
-            {% endif %}
           </div>
         </div>
+        {% if error %}
+          <div class="row">
+              <p class="error text-center">{{ error|safe }}</p>
+          </div>
+        {% endif %}
         <div class="row">
           <div class="col">
             <h2>SQL Query Viewer</h2>

@@ -171,6 +171,12 @@ input.button {
   border-color: #2391b0;
 }
 
+.error {
+  color: rgb(222, 70, 70);
+  font-size: 1.5em;
+  margin-top: -1rem;
+  margin-bottom: 1.5rem;
+}
 
 /* table -- https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Styling_tables */
 

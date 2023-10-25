@@ -1,0 +1,17 @@
+# Secret key: used to sign the session cookies cryptographically. This means that the user could
+# look at the contents of the cookie, but not modify it without knowing this secret key.
+#   - Generate with: python -c 'import secrets; print(secrets.token_hex())'
+#   - Put it in config.py as follows: SECRET_KEY = '<secret key>'
+#   - See: https://flask.palletsprojects.com/en/3.0.x/quickstart/#sessions
+#   - and: https://flask.palletsprojects.com/en/2.3.x/tutorial/deploy/#configure-the-secret-key
+# (Note - the below key is just an example, DO NOT use it in production)
+SECRET_KEY = "9d856fb340bb797805e0ccc5e5015837fb5725eb7d22925609035bfb929bbac5"
+
+# Database paths
+# (Put here to manually override defaults), e.g.:
+#   SQLI1_DATABASE=os.path.join(app.instance_path, "sqli1.db")
+# OR:
+#   SQLI1_DATABASE="src/vulnerable_webapp_scorpiontornado/sqli1.db"
+
+# Challenge flags (again, have been modified from the production flags)
+FLAGS = {"sqli1": "SAP{BOBBY_TABLES}"}
