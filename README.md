@@ -1,13 +1,15 @@
-# Something-Awesome
+# Something Awesome: Vulnerable Webapp
+## https://nlangford-vulnerable-webapp-7f65a6cee144.herokuapp.com/
 
 My UNSW COMP6841 Self-Selected Project - AKA "Something Awesome". I chose to complete this project on web security, creating an intentionally vulnerable web-app as a teaching tool.
 
-The main problem I'm trying to solve is that when beginners are presented with a CTF (e.g. a plain login screen), they're often unsure as to how to begin. This project aims to dispel some of the mystery surrounding cybersecurity by guiding them through a few common web attacks, preparing them for traditional CTFs.
+The main problem I'm trying to solve is that when beginners are presented with a CTF (e.g. a plain login screen), they're often unsure as to how to begin. This project aims to dispel some of the mystery surrounding cybersecurity by guiding them through a few common web attacks, preparing them for traditional CTFs. My target market includes keen year 10 students (with exposure to web development / SQL - like my school's year 10 IST class), UNSW COMP3311 (databases) students, and potentially year 11/12 HSC Software Engineering students as an introduction to their new cybersecurity module. I hope to make the challenges accessible enough that even someone with a very limited technical background could complete some of them, but also provide room for students to challenge themselves.
 
-The flags (things you need to find) are of the form `SAP{...}` (for Something Awesome Project). These have been changed for the production server, so peaking at the source code won't help you much in that regard (although it might make the challenges easier in other ways).
+The goal is to find "flags", pieces of text of the form `SAP{...}` (for Something Awesome Project). Each activity has hints that'll guide you through how to obtain the challenge's flag, or you can try it yourself without any help - it's up to you! The flags have been changed for the production server, so peeking at the source code won't help you much in that regard (although it might make the challenges easier in other ways).
+
+Also, please don't be a jerk. This information is provided for informational purposes only, and you shouldn't attempt these methods (or any other attack) on a system you don't have explicit written permission to break. Feel free to try and break this webapp however you want though! If you do it in an unexpected way, let me know!
 
 ### (Intentional) Vulnerabilities
-
 - Basic SQLI
 
 ### Planned (to do in future)
