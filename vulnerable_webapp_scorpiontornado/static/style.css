@@ -127,6 +127,7 @@ code:not(pre) {
   /* width: 75rem; */
   border-radius: calc(.4rem * 1.6); /* Note: * 1.6 because .4 assumed that 1rem = 16px */
   margin-bottom: 1.5em;
+  margin-right: 2em;
 }
 
 a {

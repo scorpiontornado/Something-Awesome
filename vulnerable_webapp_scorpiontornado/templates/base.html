@@ -1,25 +1,45 @@
-<!-- To enable bootstrap-flask to work with code written for flask-bootstrap (only supports bs3, not 5) -->
-<!-- https://bootstrap-flask.readthedocs.io/en/stable/migrate/ -->
+<!-- Legacy (BS3): https://pythonhosted.org/Flask-Bootstrap/basic-usage.html -->
+<!-- Migrated to https://bootstrap-flask.readthedocs.io/en/stable/ (for BS5 support)-->
 
 <!doctype html>
 <html lang="en">
     <head>
         {% block head %}
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <!-- Required meta tags -->
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        {% block styles %}
-            <!-- Bootstrap CSS -->
-            {{ bootstrap.load_css() }}
-        {% endblock %}
+            {% block styles %}
+                <!-- Bootstrap CSS -->
+                {{ bootstrap.load_css() }}
+                <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+            {% endblock %}
 
-        <title>Your page title</title>
+            <!-- Must put scripts here, not in the "scripts" block, as the scripts block is rendered at the end of the body -->
+            <script src="{{ url_for('static', filename='script.js') }}" type="text/javascript"></script>
+
+            {% if heading %}
+                <title>{{ heading }} - Vulnerable Webapp</title>
+            {% else %}
+                <title>Vulnerable Webapp</title>
+            {% endif %}
         {% endblock %}
     </head>
     <body>
-        <!-- Your page content -->
+        <!-- Header -->
+        {% block header %}
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-4">{{ heading }}</h1>
+                </div>
+            </div>
+        {% endblock %}
+
+        <!-- Actual page content -->
         {% block content %}{% endblock %}
+
+        <!-- Optional -->
+        {% block footer %}{% endblock %}
 
         {% block scripts %}
             <!-- Optional JavaScript -->

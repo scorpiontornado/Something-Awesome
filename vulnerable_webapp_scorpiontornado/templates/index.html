@@ -1,11 +1,15 @@
-{% extends "layout.html" %}
+{% extends "base.html" %}
 
 {% block content %}
   {{ super() }}
   <div class="container index">
-    <h2>Activities</h2>
+    <h2 class="mb-2">Activities</h2>
     <ul>
-      <li><a href = "{{ url_for('sqli1')}}">SQLI 1</a></li>
+      <li><a href = "{{ url_for('sqli1')}}"><h4>SQLI 1</h4></a></li>
     </ul>
   </div>
+{% endblock %}
+
+{% block footer %}
+  {% include 'footer.html' %}
 {% endblock %}
