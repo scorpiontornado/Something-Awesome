@@ -134,13 +134,13 @@ a {
   color: darkcyan;
 }
 
-.index {
-  font-size: 1.5em; /* Stacks on top of existing font-size, making it 1.5x larger */
-}
+/* .index {
+  font-size: 1.5em; /* Stacks on top of existing font-size, making it 1.5x larger
+} */
 
-.index h2 {
+/* .index h2 {
   margin-bottom: 0rem; /* Without this, there's a huge gap on index.html */
-}
+} */
 
 input.button {
   /* Modified from Bootstrap button: https://copy-paste-css.com/ */
