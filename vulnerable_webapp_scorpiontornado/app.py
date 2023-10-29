@@ -60,11 +60,15 @@ def create_app(test_config=None):
     def login():
         error = None
         hints = [
-            "It's always good to start by testing the intended behaviour of a system. Try logging in with a random username and password",
+            "It's always good to start by testing the intended behaviour of a system. Try logging in with a random username and password.",
             "Next, its time to think like an attacker - what are things you could do to break it?",
-            "Try entering a single quote (<code>'</code>) in the username or password field",
+            "Try entering a single quote (<code>'</code>) in the username or password field (note: may have to copy-paste it on mobile).",
             (
-                "Now that we've successfully closed off the string, we can modify the sql query to do whatever we want. "
+                "Uh oh! The query returned an error! This is a sign the form might be vulnerable to SQL injection, as data we (the user) have entered has affected the control of the program. "
+                "The error is coming from us closing off the string with the quote, making the rest of the query invalid. "
+                "As the program isn't sanitising our inputs, we can modify the sql query to do whatever we want. "
+            ),
+            (
                 "How would you get the <code>WHERE</code> condition to always be true? "
                 "This would match all rows (users) in the table. Then, the website would log you in as the first user - regardless of their username/password."
             ),
