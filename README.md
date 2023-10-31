@@ -15,6 +15,7 @@ Also, please don't be a jerk. This information is provided for informational pur
 ### Planned (to do in future)
 
 - Moderate SQLI - blacklists (find/replace once), perhaps one field with a parameterised input but not the other, etc.
+- SSTI (injecting into Jinja2 templates - thanks @jigg_y on Discord for the idea)
 - XSS (stored, reflected)
 - Advanced SQLI - multiple tables, UNION, blind, time-based (might be hard to implement), MySQL?
 - IDOR
