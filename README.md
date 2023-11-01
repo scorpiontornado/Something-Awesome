@@ -1,5 +1,6 @@
 # Something Awesome: Vulnerable Webapp
 ## https://nlangford-vulnerable-webapp-7f65a6cee144.herokuapp.com/
+## Feedback: n.langford@student.unsw.edu.au
 
 My UNSW COMP6841 Self-Selected Project - AKA "Something Awesome". I chose to complete this project on web security, creating an intentionally vulnerable web-app as a teaching tool.
 
