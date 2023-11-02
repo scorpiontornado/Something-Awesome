@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {{ super() }}
+  <div class="container px-4 px-sm-3 index">
+    <h2 class="mb-3">Overview</h2>
+    <p>
+      SQL injection (SQLI) is a well-known type of injection attack.
+      It refers to when an attacker submits maliciously crafted inputs called "payloads" in order to modify the SQL query executed by the web application, and thus exert control over its database.
+      This can have disastrous consequences - depending on the severity of the vulnerability, it can allow the attacker to bypass authentication, retrieve, insert, update and delete data.
+    </p>
+    
+    <h2 class="mb-3">Prevention</h2>
+      <p>
+        A naive approach to preventing SQL injection is blacklists - where key SQL keywords (like "SELECT", "UNION", or "1=1") are banned.
+        Servers will either refuse to process the query when a blacklisted word is detected, or will strip/replace blacklisted words completely.
+        For example, "SELECT * FROM Users" might become "* Users".
+        However, blacklists are never 100% effective - there are many ways to bypass blacklists, and it is very easy to forget to blacklist a keyword.
+        As with any complex system, there will be bugs, vulnerabilities, and other risks. Its simply impossible to blacklist every possible malicious statement without affecting legitimate users (at least with current technologies and a modest budget)
+      </p>
+      <p>
+        There are many prevention methods that you could (and probably should) use instead. Perhaps the most effective defence mechanism is combining multiple approaches - using "defence in depth".
+        If you want to learn more, check out the "Further Reading" section below. For now, I'll introduce one of the simplest and most effective prevention methods - "parameterised statements".
+      </p>
+      <p>
+        A common anti-pattern in cybersecurity is the idea of mixing data and control.
+        With SQL injection, the user-inputted data (like their username) can inadvertently be treated as SQL code and impact the control of the system - which is bad!
+        Parameterised statements are a way of addressing this by separating the SQL query from the user input.
+        Instead of directly inserting the user input into the query (via concatenation or format strings), the user input is treated as a parameter to a function (provided by the database driver, like sqlite3).
+        These inputs will then be treated in a safe manner - as data rather than code (like SQL keywords or special characters).
+        <strong>You should always use parameterised statements where available, unless you have a really good reason not to.</strong>
+      </p>
+      <p>Here is an example of two different vulnerable methods of forming a SQL query:</p>
+      <pre><code class="code_block">
+        # Vulnerable method 1 - concatenation
+        <!-- TODO Python highlighting -->
+      </code></pre>
+
+
+    <h2 class="mb-3">Further Reading</h2>
+      <p>
+        I'd strongly encourage you to get in the habit of Googling things you're unsure about - whether that be SQL syntax, SQLI prevention methods, or something else entirely.
+        I know this can be intimidating for beginners though, so here are some resources to get you started:
+      </p>
+      <ul>
+        <li><a href = "https://owasp.org/www-community/attacks/SQL_Injection">OWASP SQL Injection Guide</a></li>
+        <li><a href = "https://portswigger.net/web-security/sql-injection">PortSwigger SQL Injection Guide</a></li>
+        <li><a href = "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html">OWASP SQL Injection Prevention Cheat Sheet</a></li>
+        <li><a href = "https://www.hacksplaining.com/prevention/sql-injection">Protecting Against SQL Injection - Hacksplaining</a></li>
+        <li><a href = "https://docs.python.org/3/library/sqlite3.html#sqlite3-placeholders">Placeholders - sqlite3 (official docs)</a></li>
+        <li><a href = "https://xkcd.com/327/">Relevant XKCD</a></li>
+        <li><a href = "https://www.youtube.com/watch?v=Yb6dZ1IFlKc">SQL Injection for Beginners</a> (good video)</li>
+        <li><a href = "https://www.youtube.com/watch?v=_jKylhJtPmI">Hacking Websites with SQL Injection - Computerphile</a> (video featuring Tom Scott)</li>
+        <li><a href = "https://www.youtube.com/watch?v=ciNHn38EyRc">Running an SQL Injection Attack - Computerphile</a> (video featuring Dr Mike Pound)</li>
+        
+      </ul>
+  </div>
+{% endblock %}

@@ -115,6 +115,14 @@ def create_app(test_config=None):
         session.pop("username", None)
         return redirect(url_for("sqli1"))
 
+    ### Resources
+
+    @app.route("/resources/sqli")
+    def sqli_resources():
+        return render_template("sqli_resources.html", heading="SQL Injection Resources")
+
+    ### Error handlers
+
     @app.errorhandler(NotFound)
     def page_not_found_error(error):
         return (
