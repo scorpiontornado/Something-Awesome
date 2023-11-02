@@ -15,11 +15,11 @@
 {% block content %}
   {{ super() }}
 
-  <div class="container px-5 px-sm-3">
+  <div class="container px-4 px-sm-3">
     <div class="row">
       <div class="col">
         <h2>Your Task</h2> <!-- Todo: turn into dropdown/accordion? -->
-        <p>SQLI 1 is a simple SQL injection challenge. There are two fields: username and password - both are vulnerable to SQL injection. Try to log in as any user!</p>
+        <p class="mb-0 my-mb-2">SQLI 1 is a simple SQL injection challenge. There are two fields: username and password - both are vulnerable to SQL injection. Try to log in as any user!</p>
         </br>
       </div>
     </div>
@@ -28,16 +28,16 @@
       <div class="col-md-8">
         <div class="row">
           <div class="col d-flex justify-content-center">
-            <form method="post">
-              <p class="row align-items-center">
+            <form method="post" class="mt-0 mb-3 mt-sm-2 mb-sm-4 mt-sm-2 mt-md-3 mb-md-5 py-4">
+              <p class="row align-items-center mt-md-3">
                 <label class="col-4" for="sqli1_form_username">Username:</label>
-                <input class="col-7 offset-1" type="text" name="username" id="sqli1_form_username" placeholder="Enter Username" oninput="sqli1()">
+                <input class="col-7 offset-1 me-0" type="text" name="username" id="sqli1_form_username" placeholder="Enter Username" oninput="sqli1()">
               </p>
-              <p class="row align-items-center">
+              <p class="row align-items-center mb-1 mb-sm-2 mb-md-3">
                 <label class="col-4" for="sqli1_form_password">Password:</label>
                 <input class="col-7 offset-1" type="text" name="password" id="sqli1_form_password" placeholder="Enter Password" oninput="sqli1()">
               </p>
-              <p class="row"><input class="col-3 button" type="submit" value="Login"></p>
+              <p class="row my-0 mb-sm-1 mb-md-2 mb-lg-3"><input class="col-3 button" type="submit" value="Login"></p>
             </form>
           </div>
         </div>
@@ -47,7 +47,7 @@
           </div>
         {% endif %}
         <div class="row">
-          <div class="col me-0 me-sm-2 me-lg-4 me-xl-5">
+          <div class="col mt-2 mt-md-0 me-0 me-sm-2 me-lg-4 me-xl-5">
             <h2>SQL Query Viewer</h2>
             <p>This is the SQL command the server will run when you click 'Login':</p>
             <pre><code class="code_block" id="sqli1_query"></code></pre>
@@ -77,6 +77,6 @@
     </div>
   </div>
 
-  <div class="container-fluid px-5 px-sm-3 padded">
+  <div class="container-fluid px-4 px-sm-3 padded">
   </div>
 {% endblock %}

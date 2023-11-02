@@ -74,9 +74,11 @@ form {
   border-color: #404040; /* HSL 0, 0%, 25% */
   border-style: solid;
   border-radius: calc(.4rem * 1.6);
-  padding: 2.5em 12% 2em 7%; /* Top right bottom left */
-  margin-top: 1em;
-  margin-bottom: 2.5em;
+  /* padding: 2.5em 12% 2em 7%; /* Top right bottom left */
+  padding-left: 7%;
+  padding-right: 12%;
+  /* margin-top: 1em; */
+  /* margin-bottom: 2.5em; */
   /* display: table; /* https://stackoverflow.com/questions/4309950/how-to-align-input-forms-in-html */
 }
 
@@ -97,7 +99,7 @@ form label {
 form input {
   /* display: table-cell; */
   font-size: 0.9em;
-  padding: 0.5em 1.5em 0.5em 0.8em;
+  /* padding: 0.5em 1.5em 0.5em 0.8em; */
   background-color: #f6f6f6;
   border-width: 0.1px;
   border-radius: .4rem;
