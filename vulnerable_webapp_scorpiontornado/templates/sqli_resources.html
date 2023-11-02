@@ -56,8 +56,10 @@
     </code></pre>
 
     <p>
-      See <a href="https://docs.python.org/3/library/sqlite3.html#sqlite3-placeholders">the docs</a> for more info about this "qmark style" and how it differs from the "named style",
-      as well as how to use this with executemany(). Also, it's important to note that each database driver does this slightly differently,
+      This prepared statement ensures an attacker can't change the intent of a query - the parameters are treated as data, not code. For example, if the user inputted a first name of <code>Bob' OR 1=1; -- </code>,
+      the parameterised query wouldn't be vulnerable. Instead, it'd look for a student with first name that matched the entire string <code>Bob' OR 1=1; -- </code>.
+      For more info about the specifics of implementing this in Python and sqlite3, check out <a href="https://docs.python.org/3/library/sqlite3.html#sqlite3-placeholders">the docs</a>.
+      In particular, it outlines how this "qmark style" differs from the "named style", as well as how to use it with executemany(). Also, it's important to note that each database driver does this slightly differently,
       so be sure to check out the relevant documentation (searching for "parameterised statements" or "placeholders") if you're actually coding this yourself.
     </p>
 
