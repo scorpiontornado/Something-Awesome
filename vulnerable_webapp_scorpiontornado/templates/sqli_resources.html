@@ -12,9 +12,9 @@
     
     <h2 class="mb-3">Prevention</h2>
     <p>
-      A naive approach to preventing SQL injection is blacklists - where key SQL keywords (like "SELECT", "UNION", or "1=1") are banned.
+      A naive approach to preventing SQL injection is blacklists - where key SQL keywords (like <code>SELECT</code>, <code>UNION</code>, or <code>1=1</code>) are banned.
       Servers will either refuse to process the query when a blacklisted word is detected, or will strip/replace blacklisted words completely.
-      For example, "SELECT * FROM Users" might become "* Users".
+      For example, <code>SELECT * FROM Users</code> might become <code>* Users</code>.
       However, blacklists are never 100% effective - there are many ways to bypass blacklists, and it is very easy to forget to blacklist a keyword.
       As with any complex system, there will be bugs, vulnerabilities, and other risks. Its simply impossible to blacklist every possible malicious statement without affecting legitimate users (at least with current technologies and a modest budget)
     </p>
@@ -50,27 +50,21 @@
     <pre><code class="code_block px-0 py-2">
       # Do this instead!
 
-      # This qmark style is the simplest, but there are other styles too
-      # Would nest the params inside another tuple/list if was using executemany() - one row per statement
       params = ("Bobby", "Tables",)
       cur.execute("SELECT age FROM Students WHERE firstname = ? AND lastname = ?", params)
       print(cur.fetchall())
     </code></pre>
 
     <p>
-      This "qmark style" involving question marks is probably the most straightforward, but there's also a named style if you're having trouble keeping track of which ? corresponds with which variable.
-      Both styles also work with executemany() - see <a href="https://docs.python.org/3/library/sqlite3.html#sqlite3-placeholders">the docs</a> for more info. Also, it's important to note that each database driver does this slightly differently, so be sure to check out the relevant documentation (searching for "parameterised statements" or "placeholders") if you're actually coding this yourself.
+      See <a href="https://docs.python.org/3/library/sqlite3.html#sqlite3-placeholders">the docs</a> for more info about this "qmark style" and how it differs from the "named style",
+      as well as how to use this with executemany(). Also, it's important to note that each database driver does this slightly differently,
+      so be sure to check out the relevant documentation (searching for "parameterised statements" or "placeholders") if you're actually coding this yourself.
     </p>
 
-    <pre><code class="code_block px-0 py-2">
-      # Never do either of these - insecure!
-
-      # Vulnerable method 1 - concatenation
-      cur.execute("SELECT username FROM Users WHERE username='" + username + "' AND password='" + password + "'")
-
-      # Vulnerable method 2 - format strings
-      cur.execute(f"SELECT username FROM Users WHERE username='{username}' AND password='{password}'")
-    </code></pre>
+    <p>
+      As a fun challenge, why not try out <a href="https://www.crowdstrike.com/cybersecurity-101/red-team-vs-blue-team/">blue teaming</a>?
+      Fork <a href="https://github.com/scorpiontornado/Something-Awesome">my repo</a>, then try to find and fix all SQL injection vulnerabilities in this webapp!
+    </p>
 
     <h2 class="mb-3">Further Reading</h2>
     <p>
