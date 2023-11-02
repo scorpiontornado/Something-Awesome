@@ -25,7 +25,9 @@ function sqli1() {
   const username = document.getElementById('sqli1_form_username').value;
   const password = document.getElementById('sqli1_form_password').value;
 
-  document.getElementById('sqli1_query').textContent = `SELECT username FROM Users WHERE username='${username}' AND password='${password}'`;
+  const sqli1_query = document.getElementById('sqli1_query');
+  sqli1_query.textContent = `SELECT username FROM Users WHERE username='${username}' AND password='${password}'`;
+  sqli1_query.removeAttribute('data-highlighted');
 
   hljs.highlightAll();
 }
