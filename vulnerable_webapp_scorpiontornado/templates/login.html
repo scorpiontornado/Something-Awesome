@@ -1,70 +1,20 @@
-{% extends "base.html" %}
+{% extends "sqli_challenge.html" %}
 
-{% block content %}
+{% block task %}
   {{ super() }}
+  {{ task_desc }}
+{% endblock %}
 
-  <div class="container px-4 px-sm-3">
-    <div class="row">
-      <div class="col">
-        <h2>Your Task</h2> <!-- Todo: turn into dropdown/accordion? -->
-        <p class="mb-0 my-mb-2">SQLI 1 is a simple SQL injection challenge. There are two fields: username and password - both are vulnerable to SQL injection. Try to log in as any user!</p>
-        </br>
-      </div>
-    </div>
-    <div class="row">
-      <!-- put [form & query viewer] side by side wih hints -->
-      <div class="col-md-8">
-        <div class="row">
-          <div class="col d-flex justify-content-center">
-            <form method="post" class="mt-0 mb-3 mt-sm-2 mb-sm-4 mt-sm-2 mt-md-3 mb-md-5 py-4">
-              <p class="row align-items-center mt-md-3">
-                <label class="col-4" for="sqli1_form_username">Username:</label>
-                <input class="col-7 offset-1 me-0" type="text" name="username" id="sqli1_form_username" placeholder="Enter Username" oninput="sqli1()">
-              </p>
-              <p class="row align-items-center mb-1 mb-sm-2 mb-md-3">
-                <label class="col-4" for="sqli1_form_password">Password:</label>
-                <input class="col-7 offset-1" type="text" name="password" id="sqli1_form_password" placeholder="Enter Password" oninput="sqli1()">
-              </p>
-              <p class="row my-0 mb-sm-1 mb-md-2 mb-lg-3"><input class="col-3 button" type="submit" value="Login"></p>
-            </form>
-          </div>
-        </div>
-        {% if error %}
-          <div class="row">
-              <p class="error text-center">{{ error|safe }}</p>
-          </div>
-        {% endif %}
-        <div class="row">
-          <div class="col mt-2 mt-md-0 me-0 me-sm-2 me-lg-4 me-xl-5">
-            <h2>SQL Query Viewer</h2>
-            <p>This is the SQL command the server will run when you click 'Login':</p>
-            <pre><code class="code_block" id="sqli1_query"></code></pre>
-            <script>sqli1()</script>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <h2>Hints</h2>
-        <div class="accordion" id="sqli1_hints">
-          {% for hint in hints %}
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="hint{{ loop.index }}_header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#hint{{ loop.index }}_body" aria-expanded="false" aria-controls="hint{{ loop.index }}_body">
-                  Hint {{ loop.index }}
-                </button>
-              </h2>
-              <div id="hint{{ loop.index }}_body" class="accordion-collapse collapse" aria-labelledby="hint{{ loop.index }}_header" data-bs-parent="#sqli1_hints">
-                <div class="accordion-body">
-                  <p>{{ hint|safe }}</p>
-                </div>
-              </div>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="container-fluid px-4 px-sm-3 padded">
-  </div>
+{% block form %}
+  <form method="post" class="mt-0 mb-3 mt-sm-2 mb-sm-4 mt-sm-2 mt-md-3 mb-md-5 py-4">
+    <p class="row align-items-center mt-md-3">
+      <label class="col-4" for="sqli1_form_username">Username:</label>
+      <input class="col-7 offset-1 me-0" type="text" name="username" id="sqli1_form_username" placeholder="Enter Username" oninput="sqli1()">
+    </p>
+    <p class="row align-items-center mb-1 mb-sm-2 mb-md-3">
+      <label class="col-4" for="sqli1_form_password">Password:</label>
+      <input class="col-7 offset-1" type="text" name="password" id="sqli1_form_password" placeholder="Enter Password" oninput="sqli1()">
+    </p>
+    <p class="row my-0 mb-sm-1 mb-md-2 mb-lg-3"><input class="col-3 button" type="submit" value="Login"></p>
+  </form>
 {% endblock %}
