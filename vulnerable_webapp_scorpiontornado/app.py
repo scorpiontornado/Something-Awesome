@@ -135,8 +135,8 @@ def create_app(test_config=None):
             "Try entering a student ID that doesn't exist, nothing, or a single quote ' into the student ID field. What does this tell us about the system?",
             (
                 "We also know that when we enter a single quote, we get an error - so, the system may be vulnerable to SQL injection. "
-                "However, unlike SQLI 1, simply selecting all rows won't work. "
-                "We can already do that by entering nothing (because of the ILIKE and wildcard %), but we can't see the flag. "
+                "However, unlike SQLI 1, simply selecting all rows won't suffice. "
+                # "We can already do that by entering nothing (because of the ILIKE and wildcard %), but we can't see the flag. "
                 "Where else could it be hidden?"
             ),
             (
