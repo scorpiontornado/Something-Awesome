@@ -1,12 +1,13 @@
 import sqlite3
 
+
 ### Database code
 def init_sqli1_db(db_path):
     print("Connecting to database...")
 
-    con = sqlite3.connect(db_path)  # Will create db if doesn't exist
-
     try:
+        con = sqlite3.connect(db_path)  # Will create db if doesn't exist
+
         cur = con.cursor()
         cur.execute("DROP TABLE IF EXISTS Users")
         cur.execute(
@@ -33,9 +34,12 @@ def init_sqli1_db(db_path):
         # )  # TESTING - should return: test ('admin',)
     except Exception as e:
         print("Error creating SQLI 1 database:", e)
-        con.rollback()
-        
-    con.close()
+        # If connection was made, rollback changes (otherwise, con won't have a value)
+        if con:
+            con.rollback()
+    finally:
+        if con:
+            con.close()
 
 
 def execute(con, query, parameters=()):
