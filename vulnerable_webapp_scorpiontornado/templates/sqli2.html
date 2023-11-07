@@ -1,0 +1,13 @@
+{% extends "sqli_challenge.html" %}
+
+{% block form %}
+    <!-- Inspired by https://youtu.be/bAhvzXfuhg8 and https://sqli1.comp6841.quoccabank.com/-->
+
+    <form method="POST" class="mt-0 mb-1 mt-md-2 mb-md-3" style="width: 100%">
+        <!-- https://getbootstrap.com/docs/5.0/forms/input-group/#button-addons -->
+        <div class="input-group mb-3">
+            <input type="text" name="student_id" class="form-control" placeholder="Student ID" aria-label="Student ID" aria-describedby="submit-student-id">
+            <button class="btn btn-outline-secondary" type="button submit" id="submit-student-id">Search</button>
+        </div>
+    </form>
+{% endblock %}

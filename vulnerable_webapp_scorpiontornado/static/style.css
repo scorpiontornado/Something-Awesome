@@ -70,7 +70,7 @@ p, a, code {
   font-size: 16px;
 }
 
-form {
+form.login {
   border-color: #404040; /* HSL 0, 0%, 25% */
   border-style: solid;
   border-radius: calc(.4rem * 1.6);
@@ -82,7 +82,7 @@ form {
   /* display: table; /* https://stackoverflow.com/questions/4309950/how-to-align-input-forms-in-html */
 }
 
-label, input, form a {
+label, input, form.login a {
   font-size: 20px;
 }
 
@@ -91,12 +91,12 @@ label, input, form a {
   display: table-row;
 } */
 
-form label {
+form.login label {
   /* display: table-cell; */
   padding: .5em;
 }
 
-form input {
+form.login input {
   /* display: table-cell; */
   font-size: 0.9em;
   /* padding: 0.5em 1.5em 0.5em 0.8em; */
@@ -106,7 +106,7 @@ form input {
   height: 2.5em;
 }
 
-form .button {
+form.login .button {
   margin: 1em 0 .5em 0;
   position: relative;
   left: .5em;

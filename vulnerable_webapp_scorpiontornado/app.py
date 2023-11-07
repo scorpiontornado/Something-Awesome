@@ -107,13 +107,61 @@ def create_app(test_config=None):
                 session["username"] = res[0]
                 return redirect(url_for("sqli1"))
 
-        return render_template("login.html", heading="Login", error=error, hints=hints)
+        return render_template(
+            "login.html",
+            heading="Login",
+            chal_name="sqli1",
+            task_desc="SQLI 1 is a simple SQL injection challenge. There are two fields: username and password - both are vulnerable to SQL injection. Try to log in as any user!",
+            error=error,
+            hints=hints,
+        )
 
     @app.route("/sqli1/logout")
     def logout():
         # Remove the username from the session if it's there
         session.pop("username", None)
         return redirect(url_for("sqli1"))
+
+    # COMP6841 SQLI pre-reading: https://youtu.be/bAhvzXfuhg8
+    @app.route("/sqli2")
+    def sqli2():
+        # TODO create db and tables ()
+
+        error = None
+        hints = [
+            "As always, first try and use the system normally. Next, try and break it!",
+            "Try entering a student ID that doesn't exist, nothing, or a single quote ' into the student ID field. What does this tell us about the system?",
+            (
+                "We also know that when we enter a single quote, we get an error - so, the system may be vulnerable to SQL injection. "
+                "However, unlike SQLI 1, simply selecting all rows won't work. "
+                "We can already do that by entering nothing (because of the ILIKE and wildcard %), but we can't see the flag. "
+                "Where else could it be hidden?"
+            ),
+            (
+                "UNION is a SQL operator that allows you to combine the results of two queries. "
+                "Also, most database management systems have a table that contains information about the database itself, like the names of tables. "
+                "To save you some trial-and-error, this server is using sqlite3, which has a table called sqlite_master. "
+                "Try researching these concepts and see if you can find some information about table names."
+            ),
+            # TODO add more hints
+            #   - Padding with 1- or NULL-filled columns to make the UNION valid / get the same number of columns as the original query
+            #   - UNION with sqlite_master to find table names
+            #   - UNION with sqlite_master to find column names
+            #   - UNION with table names
+        ]
+
+        return render_template(
+            "sqli2.html",
+            heading="Student Lookup",
+            chal_name="sqli2",
+            task_desc="A benign student lookup system - you enter a student ID, and get back their name and email. What could go wrong?",
+            error=error,
+            hints=hints,
+        )
+
+    # TODO If request.method == "POST", then get inputs from form, execute(), then pass fetchall() into render_template
+    # (For get, this variable will just start as None like I did with error in sqli1)
+    # Still want to get error - invalid SQL query, and no results
 
     ### Resources
 
