@@ -155,22 +155,31 @@ def create_app(test_config=None):
 
         if request.method == "POST":
             student_id = request.form.get("student_id")
-            with sqlite3.connect(app.config["SQLI2_DATABASE"]) as con:
-                res = execute(
-                    con,
-                    f"SELECT first_name, last_name, email FROM Students WHERE student_id = {student_id}",
-                )
 
-            # False = invalid query
-            if res:
-                # If res is populated with results, query is successful
-                res = res.fetchall()
-                if not res:
-                    # No results for the query
-                    error = "No students found"
+            if (
+                not student_id.isnumeric()
+                or int(student_id) < 1000000
+                or int(student_id) > 9999999
+            ):
+                error = "Student ID must between 1000000 and 9999999"
             else:
-                # Invalid query
-                error = "<strong>Error!</strong> Invalid SQL query"
+                # TODO clean up nesting hell
+                with sqlite3.connect(app.config["SQLI2_DATABASE"]) as con:
+                    res = execute(
+                        con,
+                        f"SELECT first_name, last_name, email FROM Students WHERE student_id = {student_id}",
+                    )
+
+                # False = invalid query
+                if res:
+                    # If res is populated with results, query is successful
+                    res = res.fetchall()
+                    if not res:
+                        # No results for the query
+                        error = "No students found"
+                else:
+                    # Invalid query
+                    error = "<strong>Error!</strong> Invalid SQL query"
 
             print("res:", res)
 
