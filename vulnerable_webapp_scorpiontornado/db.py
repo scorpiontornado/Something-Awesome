@@ -42,6 +42,31 @@ def init_sqli1_db(db_path):
             con.close()
 
 
+def init_sqli2_db(db_path, schema_path, data_path):
+    # try:
+    con = sqlite3.connect(db_path)  # Will create db if doesn't exist
+    cur = con.cursor()
+
+    # TODO insert flags from env variables (one in Students, one in Marks)
+    with open(schema_path) as schema_file:
+        schema = schema_file.read()
+        cur.executescript(schema)
+    with open(data_path) as data:
+        cur.executescript(data.read())
+
+    con.commit()
+
+    # except Exception as e:
+    #     print("Error creating SQLI 2 database:", e)
+    #     # If connection was made, rollback changes (otherwise, con won't have a value)
+    #     if con:
+    #         con.rollback()
+
+    # finally:
+    #     if con:
+    #         con.close()
+
+
 def execute(con, query, parameters=()):
     # Moved database connection outside, as fetchone() is a Cursor method & Cursors close when their
     # parent connection does. Not closing would slow down the system over time.

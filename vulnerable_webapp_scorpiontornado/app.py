@@ -6,12 +6,12 @@ from werkzeug.exceptions import NotFound, InternalServerError
 # https://bootstrap-flask.readthedocs.io/en/stable/api/#flask_bootstrap.Bootstrap5 --> Bootstrap 5
 from flask_bootstrap import Bootstrap5
 
-from vulnerable_webapp_scorpiontornado.db import init_sqli1_db
+from vulnerable_webapp_scorpiontornado.db import init_sqli1_db, init_sqli2_db
 from vulnerable_webapp_scorpiontornado.auth import insecure_login
 
 import os
-
-from flask import Flask
+import sqlite3
+from vulnerable_webapp_scorpiontornado.db import execute
 
 
 def create_app(test_config=None):
@@ -22,8 +22,12 @@ def create_app(test_config=None):
     # Default config (will be overridden by environment variables / test_config if they exist)
     app.config.from_mapping(
         SQLI1_DATABASE=os.path.join(app.instance_path, "sqli1.db"),
+        SQLI2_DATABASE=os.path.join(app.instance_path, "sqli2.db"),
+        SQLI2_SCHEMA=os.path.join(app.root_path, "sqli2_schema.sql"),
+        SQLI2_DATA=os.path.join(app.root_path, "sqli2_data.sql"),
         SECRET_KEY="dev",
         SQLI1_FLAG="SAP{BOBBY_TABLES}",
+        # TODO add SQLI2_FLAG1, SQLI2_FLAG2
     )
 
     if test_config is None:
@@ -123,10 +127,8 @@ def create_app(test_config=None):
         return redirect(url_for("sqli1"))
 
     # COMP6841 SQLI pre-reading: https://youtu.be/bAhvzXfuhg8
-    @app.route("/sqli2")
+    @app.route("/sqli2", methods=["GET", "POST"])
     def sqli2():
-        # TODO create db and tables ()
-
         error = None
         hints = [
             "As always, first try and use the system normally. Next, try and break it!",
@@ -149,15 +151,40 @@ def create_app(test_config=None):
             #   - UNION with sqlite_master to find column names
             #   - UNION with table names
         ]
+        res = None
+
+        if request.method == "POST":
+            student_id = request.form.get("student_id")
+            with sqlite3.connect(app.config["SQLI2_DATABASE"]) as con:
+                res = execute(
+                    con,
+                    f"SELECT first_name, last_name, email FROM Students WHERE student_id = {student_id}",
+                )
+
+            # False = invalid query
+            if res:
+                # If res is populated with results, query is successful
+                res = res.fetchall()
+                if not res:
+                    # No results for the query
+                    error = "No students found"
+            else:
+                # Invalid query
+                error = "<strong>Error!</strong> Invalid SQL query"
+
+            print("res:", res)
 
         return render_template(
             "sqli2.html",
             heading="Student Lookup",
             chal_name="sqli2",
-            task_desc="A benign student lookup system - you enter a student ID, and get back their name and email. What could go wrong?",
+            task_desc="A benign student lookup system - you enter a student ID, and get back their name and email. What could go wrong? (Note: there are two flags in this challenge)",
             error=error,
             hints=hints,
+            # TODO set up results
         )
+
+    # TODO add two flags to sqli2 (one in students, one in marks)
 
     # TODO If request.method == "POST", then get inputs from form, execute(), then pass fetchall() into render_template
     # (For get, this variable will just start as None like I did with error in sqli1)
@@ -186,7 +213,13 @@ def create_app(test_config=None):
         )
 
     # Initialise databases
+
     init_sqli1_db(app.config["SQLI1_DATABASE"])
+    init_sqli2_db(
+        app.config["SQLI2_DATABASE"],
+        app.config["SQLI2_SCHEMA"],
+        app.config["SQLI2_DATA"],
+    )
 
     return app
 
