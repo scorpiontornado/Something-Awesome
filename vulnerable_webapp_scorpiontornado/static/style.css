@@ -186,6 +186,7 @@ input.button {
 table {
   margin: 30px;
   table-layout: fixed;
+  overflow-wrap: break-word; /* https://stackoverflow.com/a/27530416 */
   width: 95%;
   border-collapse: collapse;
   border: 1px solid black;
