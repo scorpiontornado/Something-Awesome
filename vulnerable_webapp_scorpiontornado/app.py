@@ -133,7 +133,7 @@ def create_app(test_config=None):
         error = None
         hints = [
             "As always, first try and use the system normally. Next, try and break it!",
-            "Try entering a student ID that doesn't exist, nothing, or a single quote ' into the student ID field. What does this tell us about the system?",
+            "Try entering a student ID that doesn't exist, nothing, or a single quote <code>'</code> into the student ID field. What does this tell us about the system?",
             (
                 "We also know that when we enter a single quote, we get an error - so, the system may be vulnerable to SQL injection. "
                 "However, unlike SQLI 1, simply selecting all rows won't suffice. "
@@ -141,26 +141,36 @@ def create_app(test_config=None):
                 "Where else could it be hidden?"
             ),
             (
-                "UNION is a SQL operator that allows you to combine the results of two queries. "
-                "Also, most database management systems have a table that contains information about the database itself, like the names of tables."
+                "Because of the way the server is configured, we can't simply end the query with a semicolon and start a new one. "
+                "To get around this, you might find the <code>UNION</code> SQL operator helpful - it allows you to combine the results of two queries. "
+                "</br></br>Also, most database management systems have a table that contains information about the database itself, like the names of tables."
                 "</br></br>To save you some trial-and-error, this server is using sqlite3, which has a table called <a href='https://www.sqlite.org/schematab.html'>sqlite_master</a>. "
                 "Try researching these concepts and see if you can find some information about table names."
                 "</br></br>(Note: other DBMSs have similar tables, like <code>INFORMATION_SCHEMA.tables</code> and <code>INFORMATION_SCHEMA.columns</code> for MySQL)."
             ),
             (
-                "Relevant columns of sqlite_master include <code>name</code> (the name of the table) and <code>sql</code> (the SQL used to create the table). "
-                "You can also use the value <code>1</code> as if it were a column - it will make a column with only 1's. "
+                "Relevant columns of sqlite_master include <code>name</code> (the name of the table) and <code>sql</code> (the SQL used to create the table)."
+                "</br></br>You can also use the value <code>1</code> in a SELECT statement as if it were a column - it will make a column with only 1's. "
                 "This is handy because <code>UNION</code>s are only valid if the number of columns in both <code>SELECT</code> statements match."
+                "</br></br>(In other DBMSs with strict typing, you might need to match the datatype to make the UNION valid "
+                "- <code>NULL</code> works in most cases, but if the column is specifically <code>NOT NULL</code> you'll have to use e.g. <code>'a'</code> for a text column. "
+                "You don't need that for this challenge though)"
             ),
             (
                 "Try entering <code>1 UNION SELECT name,sql,1 FROM sqlite_master WHERE type='table'</code> into the student ID field. "
                 "This will return the name and SQL used to create each table in the database, including information about columns. "
                 # "The <code>1</code> will create a column with only 1's. This  to make the UNION valid - we need the same number of columns as the original query. "
             ),
-            # TODO add more hints
+            (
+                "Now that you know the tables in the database and their columns, "
+                "try using UNIONs to extract data from the tables to get the two flags. "
+                "<br/><br/>I don't want to give too much away for this challenge, so good luck! "
+                "Don't be afraid to Google things, like SQL UNION syntax!"
+            )
+            # Important concepts:
             #   - Padding with 1- or NULL-filled columns to make the UNION valid / get the same number of columns as the original query
             #   - UNION with sqlite_master to find table names
-            #       UNION SELECT * FROM sqlite_master WHERE type = 'table'
+            #       Want to run something like SELECT * FROM sqlite_master WHERE type = 'table'
             #           (mention INFORMATION_SCHEMA.tables, INFORMATION_SCHEMA.columns for MySQL)
             #       1 UNION SELECT name, tbl_name, sql FROM sqlite_master WHERE type = 'table'
             #   - UNION with sqlite_master to find column names
