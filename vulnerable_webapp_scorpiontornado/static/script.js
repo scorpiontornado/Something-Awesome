@@ -31,3 +31,13 @@ function sqli1() {
 
   hljs.highlightAll();
 }
+
+function sqli2() {
+  const student_id = document.getElementById('sqli2_student_id').value;
+
+  const sqli2_query = document.getElementById('sqli2_query');
+  sqli2_query.textContent = `SELECT first_name, last_name, email FROM Students WHERE student_id = ${student_id}`;
+  sqli2_query.removeAttribute('data-highlighted');
+
+  hljs.highlightAll();
+}

@@ -148,6 +148,8 @@ def create_app(test_config=None):
             # TODO add more hints
             #   - Padding with 1- or NULL-filled columns to make the UNION valid / get the same number of columns as the original query
             #   - UNION with sqlite_master to find table names
+            #       UNION SELECT * FROM sqlite_master WHERE type = 'table'
+            #       (mention INFORMATION_SCHEMA.tables, INFORMATION_SCHEMA.columns for MySQL)
             #   - UNION with sqlite_master to find column names
             #   - UNION with table names
         ]
@@ -156,30 +158,28 @@ def create_app(test_config=None):
         if request.method == "POST":
             student_id = request.form.get("student_id")
 
-            if (
-                not student_id.isnumeric()
-                or int(student_id) < 1000000
-                or int(student_id) > 9999999
-            ):
-                error = "Student ID must between 1000000 and 9999999"
-            else:
-                # TODO clean up nesting hell
+            # TODO clean up nesting hell
+            try:
                 with sqlite3.connect(app.config["SQLI2_DATABASE"]) as con:
+                    # TODO decide if they should enter the zid, or the full name & get back email
                     res = execute(
                         con,
                         f"SELECT first_name, last_name, email FROM Students WHERE student_id = {student_id}",
                     )
+            except Exception as e:
+                # res will remain None
+                print(e)
 
-                # False = invalid query
-                if res:
-                    # If res is populated with results, query is successful
-                    res = res.fetchall()
-                    if not res:
-                        # No results for the query
-                        error = "No students found"
-                else:
-                    # Invalid query
-                    error = "<strong>Error!</strong> Invalid SQL query"
+            # False = invalid query
+            if res:
+                # If res is populated with results, query is successful
+                res = res.fetchall()
+                if not res:
+                    # No results for the query
+                    error = "No students found"
+            else:
+                # Invalid query
+                error = "<strong>Error!</strong> Invalid SQL query"
 
             print("res:", res)
 
@@ -190,7 +190,7 @@ def create_app(test_config=None):
             task_desc="A benign student lookup system - you enter a student ID, and get back their name and email. What could go wrong? (Note: there are two flags in this challenge)",
             error=error,
             hints=hints,
-            # TODO set up results
+            res=res,
         )
 
     # TODO add two flags to sqli2 (one in students, one in marks)

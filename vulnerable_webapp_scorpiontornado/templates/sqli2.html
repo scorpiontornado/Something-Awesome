@@ -3,11 +3,26 @@
 {% block form %}
     <!-- Inspired by https://youtu.be/bAhvzXfuhg8 and https://sqli1.comp6841.quoccabank.com/-->
 
-    <form method="POST" class="mt-0 mb-1 mt-md-2 mb-md-3" style="width: 100%">
+    <form method="POST" class="mt-0 mb-1 mt-md-2 mb-md-3 me-0 me-sm-2 me-lg-4 me-xl-5" style="width: 100%">
         <!-- https://getbootstrap.com/docs/5.0/forms/input-group/#button-addons -->
         <div class="input-group mb-3">
-            <input type="text" name="student_id" class="form-control" placeholder="Student ID" aria-label="Student ID" aria-describedby="submit-student-id">
-            <button class="btn btn-outline-secondary" type="button submit" id="submit-student-id">Search</button>
+            <input type="text" name="student_id" id="sqli2_student_id" oninput="sqli2()" placeholder="Student ID" aria-label="Student ID" aria-describedby="sqli2_submit">
+            <button class="btn btn-outline-secondary" type="button submit" id="sqli2_submit">Search</button>
         </div>
     </form>
+{% endblock %}
+
+{% block results %}
+    {% if res %}
+        {% for row in res %}
+            <div class="row">
+                <div class="col">
+                    <h2>Results</h2>
+                    <p>First Name: {{ row[0] }}</p>
+                    <p>Last Name: {{ row[1] }}</p>
+                    <p>Email: {{ row[2] }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
 {% endblock %}
