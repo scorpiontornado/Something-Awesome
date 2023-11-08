@@ -27,7 +27,7 @@ def create_app(test_config=None):
         SQLI2_DATA=os.path.join(app.root_path, "sqli2_data.sql"),
         SECRET_KEY="dev",
         SQLI1_FLAG="SAP{BOBBY_TABLES}",
-        # TODO add SQLI2_FLAG1, SQLI2_FLAG2
+        # TODO add SQLI2_FLAG1, SQLI2_FLAG2, update flag if env set
     )
 
     if test_config is None:

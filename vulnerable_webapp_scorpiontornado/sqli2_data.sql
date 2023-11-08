@@ -24,7 +24,7 @@ INSERT INTO Students VALUES (
     "Tables",
     "s5123456@ad.uni.edu",
     "0420212121",
-    "321 Cool Street, Kensington, NSW 2033",
+    "SAP{STALKER_ALERT}",
     "1981-11-17"
 );
 INSERT INTO Students VALUES (
@@ -49,7 +49,7 @@ INSERT INTO Marks VALUES (
     "COMP1521",
     "20T2",
     100,
-    "HD"
+    "SAP{SMARTY_PANTS}"
 );
 INSERT INTO Marks VALUES (
     5456712,

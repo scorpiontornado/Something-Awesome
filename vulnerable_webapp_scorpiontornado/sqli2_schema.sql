@@ -26,7 +26,7 @@ CREATE TABLE Marks (
     course_code TEXT,
     term TEXT, -- Could use the regex from COMP3311 23T3 assignment 2 - '[12][01239]T[0123]' - but I can't figure out how to do it in sqlite3
     mark INTEGER CHECK (mark BETWEEN 0 AND 100),
-    grade TEXT CHECK (grade IN ("HD", "DN", "CR", "PS", "FL")), -- Simplified model
+    grade TEXT, -- CHECK (grade IN ("HD", "DN", "CR", "PS", "FL")), -- Simplified model
     PRIMARY KEY (student_id, course_code),
     FOREIGN KEY (student_id) REFERENCES Students(student_id)
 );
