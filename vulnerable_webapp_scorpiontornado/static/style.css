@@ -198,7 +198,7 @@ td {
 }
 
 tbody tr:nth-child(odd) {
-  background-color: lightgrey;
+  background-color: #eeeeee;
 }
 
 tbody tr:nth-child(even) {
@@ -206,7 +206,7 @@ tbody tr:nth-child(even) {
 }
 
 thead {
-  background-color: darkcyan;
+  background-color: #21abd1;
   color: white;
   font-size: 18px;
 }

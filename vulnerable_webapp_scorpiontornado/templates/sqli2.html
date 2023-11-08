@@ -1,28 +1,33 @@
 {% extends "sqli_challenge.html" %}
 
 {% block form %}
-    <!-- Inspired by https://youtu.be/bAhvzXfuhg8 and https://sqli1.comp6841.quoccabank.com/-->
+  <!-- Inspired by https://youtu.be/bAhvzXfuhg8 and https://sqli1.comp6841.quoccabank.com/-->
 
-    <form method="POST" class="mt-0 mb-1 mt-md-2 mb-md-3" style="width: 100%">
-        <!-- https://getbootstrap.com/docs/5.0/forms/input-group/#button-addons -->
-        <div class="input-group mb-3">
-            <input type="text" name="student_id" id="sqli2_student_id" oninput="sqli2()" placeholder="Student ID" aria-label="Student ID" aria-describedby="sqli2_submit">
-            <button class="btn btn-outline-secondary" type="button submit" id="sqli2_submit">Search</button>
-        </div>
-    </form>
+  <form method="POST" class="mt-0 mb-1 mt-md-2 mb-md-3" style="width: 100%">
+    <!-- https://getbootstrap.com/docs/5.0/forms/input-group/#button-addons -->
+    <div class="input-group mb-3">
+      <input type="text" name="student_id" id="sqli2_student_id" oninput="sqli2()" placeholder="Student ID" aria-label="Student ID" aria-describedby="sqli2_submit">
+      <button class="btn btn-outline-secondary" type="button submit" id="sqli2_submit">Search</button>
+    </div>
+  </form>
 {% endblock %}
 
 {% block results %}
-    {% if res %}
-        {% for row in res %}
-            <div class="row">
-                <div class="col">
-                    <h2>Results</h2>
-                    <p>First Name: {{ row[0] }}</p>
-                    <p>Last Name: {{ row[1] }}</p>
-                    <p>Email: {{ row[2] }}</p>
-                </div>
-            </div>
-        {% endfor %}
-    {% endif %}
+  {% if res %}
+    <table border=1 class="mx-0">
+      <thead>
+        <td>First Name</td>
+        <td>Last Name</td>
+        <td>Email</td>
+      </thead>
+      
+      {% for row in res %}
+        <tr>
+          <td>{{row[0]}}</td>
+          <td>{{row[1]}}</td>
+          <td>{{row[2]}}</td> <!-- TODO: mobile support -->
+        </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
 {% endblock %}
