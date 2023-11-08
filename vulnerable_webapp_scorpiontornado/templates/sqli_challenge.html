@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {{ super() }}
+
+  <div class="container px-4 px-sm-3">
+    <div class="row">
+      <div class="col">
+        <h2>Your Task</h2> <!-- Todo: turn into dropdown/accordion? -->
+        <p class="mb-0 my-mb-2">{{ task_desc }}</p>
+        </br>
+      </div>
+    </div>
+    <div class="row">
+      <!-- put [form & query viewer] side by side wih hints -->
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col d-flex justify-content-center">
+            {% block form %}{% endblock %}
+          </div>
+        </div>
+        {% if error %}
+          <div class="row">
+              <p class="error text-center">{{ error|safe }}</p>
+          </div>
+        {% endif %}
+        <div class="row">
+          <div class="col mt-2 mt-md-0 me-0 me-sm-2 me-lg-4 me-xl-5">
+            <h2>SQL Query Viewer</h2>
+            <p>This is the SQL command the server will run:</p>
+            <pre><code class="code_block" id="{{ chal_name }}_query"></code></pre>
+            <script>{{ chal_name }}()</script>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col d-flex justify-content-center mt-2 mt-md-0 me-0 me-sm-2 me-lg-4 me-xl-5">
+            {% block results %}{% endblock %}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h2>Hints</h2>
+        <div class="accordion" id="{{ chal_name }}_hints">
+          {% for hint in hints %}
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="hint{{ loop.index }}_header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#hint{{ loop.index }}_body" aria-expanded="false" aria-controls="hint{{ loop.index }}_body">
+                  Hint {{ loop.index }}
+                </button>
+              </h2>
+              <div id="hint{{ loop.index }}_body" class="accordion-collapse collapse" aria-labelledby="hint{{ loop.index }}_header" data-bs-parent="#{{ chal_name }}_hints">
+                <div class="accordion-body">
+                  <p>{{ hint|safe }}</p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
