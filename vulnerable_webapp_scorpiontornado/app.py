@@ -142,9 +142,20 @@ def create_app(test_config=None):
             ),
             (
                 "UNION is a SQL operator that allows you to combine the results of two queries. "
-                "Also, most database management systems have a table that contains information about the database itself, like the names of tables. "
-                "To save you some trial-and-error, this server is using sqlite3, which has a table called <a href='https://www.sqlite.org/schematab.html'>sqlite_master</a>. "
+                "Also, most database management systems have a table that contains information about the database itself, like the names of tables."
+                "</br></br>To save you some trial-and-error, this server is using sqlite3, which has a table called <a href='https://www.sqlite.org/schematab.html'>sqlite_master</a>. "
                 "Try researching these concepts and see if you can find some information about table names."
+                "</br></br>(Note: other DBMSs have similar tables, like <code>INFORMATION_SCHEMA.tables</code> and <code>INFORMATION_SCHEMA.columns</code> for MySQL)."
+            ),
+            (
+                "Relevant columns of sqlite_master include <code>name</code> (the name of the table) and <code>sql</code> (the SQL used to create the table). "
+                "You can also use the value <code>1</code> as if it were a column - it will make a column with only 1's. "
+                "This is handy because <code>UNION</code>s are only valid if the number of columns in both <code>SELECT</code> statements match."
+            ),
+            (
+                "Try entering <code>1 UNION SELECT name,sql,1 FROM sqlite_master WHERE type='table'</code> into the student ID field. "
+                "This will return the name and SQL used to create each table in the database, including information about columns. "
+                # "The <code>1</code> will create a column with only 1's. This  to make the UNION valid - we need the same number of columns as the original query. "
             ),
             # TODO add more hints
             #   - Padding with 1- or NULL-filled columns to make the UNION valid / get the same number of columns as the original query
