@@ -36,6 +36,7 @@ def create_app(test_config=None):
         # To set your own environment variables, make a .env file based on .env.example, and run:
         #   `source .env` in terminal (done by Heroku automatically when deploying to production).
         app.config.from_prefixed_env()
+        # TODO add different flag to env - .env, .env.example, Heroku
     else:
         # Load the test config if passed in
         app.config.from_mapping(test_config)
@@ -142,14 +143,15 @@ def create_app(test_config=None):
             (
                 "UNION is a SQL operator that allows you to combine the results of two queries. "
                 "Also, most database management systems have a table that contains information about the database itself, like the names of tables. "
-                "To save you some trial-and-error, this server is using sqlite3, which has a table called sqlite_master. "
+                "To save you some trial-and-error, this server is using sqlite3, which has a table called <a href='https://www.sqlite.org/schematab.html'>sqlite_master</a>. "
                 "Try researching these concepts and see if you can find some information about table names."
             ),
             # TODO add more hints
             #   - Padding with 1- or NULL-filled columns to make the UNION valid / get the same number of columns as the original query
             #   - UNION with sqlite_master to find table names
             #       UNION SELECT * FROM sqlite_master WHERE type = 'table'
-            #       (mention INFORMATION_SCHEMA.tables, INFORMATION_SCHEMA.columns for MySQL)
+            #           (mention INFORMATION_SCHEMA.tables, INFORMATION_SCHEMA.columns for MySQL)
+            #       1 UNION SELECT name, tbl_name, sql FROM sqlite_master WHERE type = 'table'
             #   - UNION with sqlite_master to find column names
             #   - UNION with table names
         ]

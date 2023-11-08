@@ -69,7 +69,7 @@ INSERT INTO Marks VALUES (
     5456712,
     "COMP3311",
     "20T3",
-    52,
+    97,
     "PS"
 );
 INSERT INTO Marks VALUES (
