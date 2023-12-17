@@ -127,6 +127,30 @@ def create_app(test_config=None):
         session.pop("username", None)
         return redirect(url_for("sqli1"))
 
+    def get_student(dbname, student_id):
+        try:
+            with sqlite3.connect(app.config[dbname]) as con:
+                res = execute(
+                    con,
+                    f"SELECT first_name, last_name, email FROM Students WHERE student_id = {student_id}",
+                )
+        except Exception as e:
+            # res will remain None
+            print(e)
+
+        # False = invalid query
+        if res:
+            # If res is populated with results, query is successful
+            res = res.fetchall()
+            if not res:
+                # No results for the query
+                error = "No students found"
+        else:
+            # Invalid query
+            error = "<strong>Error!</strong> Invalid SQL query"
+
+        print("res:", res)
+
     # COMP6841 SQLI pre-reading: https://youtu.be/bAhvzXfuhg8
     @app.route("/sqli2", methods=["GET", "POST"])
     def sqli2():
@@ -181,29 +205,7 @@ def create_app(test_config=None):
         if request.method == "POST":
             student_id = request.form.get("student_id")
 
-            # TODO clean up nesting hell
-            try:
-                with sqlite3.connect(app.config["SQLI2_DATABASE"]) as con:
-                    res = execute(
-                        con,
-                        f"SELECT first_name, last_name, email FROM Students WHERE student_id = {student_id}",
-                    )
-            except Exception as e:
-                # res will remain None
-                print(e)
-
-            # False = invalid query
-            if res:
-                # If res is populated with results, query is successful
-                res = res.fetchall()
-                if not res:
-                    # No results for the query
-                    error = "No students found"
-            else:
-                # Invalid query
-                error = "<strong>Error!</strong> Invalid SQL query"
-
-            print("res:", res)
+            get_student("SQLI2_DATABASE", student_id)
 
         return render_template(
             "sqli2&3.html",
@@ -215,11 +217,45 @@ def create_app(test_config=None):
             res=res,
         )
 
-    # TODO add two flags to sqli2 (one in students, one in marks)
+    @app.route("/sqli3", methods=["GET", "POST"])
+    def sqli3():
+        error = None
+        hints = [
+            "TODO",  # TODO
+        ]
+        res = None
 
-    # TODO If request.method == "POST", then get inputs from form, execute(), then pass fetchall() into render_template
-    # (For get, this variable will just start as None like I did with error in sqli1)
-    # Still want to get error - invalid SQL query, and no results
+        if request.method == "POST":
+            student_id = request.form.get("student_id")
+
+            # From quoccabank sqli3
+            if student_id is not None:
+                # super powerful WAF
+                for bad in [
+                    "union",
+                    "select",
+                    "from",
+                    "where",
+                    "UNION",
+                    "SELECT",
+                    "FROM",
+                    "WHERE",
+                ]:
+                    student_id = student_id.replace(bad, "")
+
+            get_student(
+                "SQLI2_DATABASE", student_id
+            )  # TODO change to SQLI3_DATABASE and make new flag
+
+        return render_template(
+            "sqli2&3.html",
+            heading="Student Lookup Strikes Back!",
+            chal_name="sqli3",
+            task_desc="The developers have grown wary to your SQL injection attacks, so have added a blacklist! They've overlooked something though...",
+            error=error,
+            hints=hints,
+            res=res,
+        )
 
     ### Resources
 

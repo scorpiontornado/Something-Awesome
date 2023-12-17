@@ -30,7 +30,7 @@ function sqli1() {
   sqli1_query.removeAttribute('data-highlighted');
 
   hljs.highlightAll();
-}
+} 
 
 function sqli2() {
   const student_id = document.getElementById('sqli2_student_id').value;
@@ -38,6 +38,19 @@ function sqli2() {
   const sqli2_query = document.getElementById('sqli2_query');
   sqli2_query.textContent = `SELECT first_name, last_name, email FROM Students WHERE student_id = ${student_id}`;
   sqli2_query.removeAttribute('data-highlighted');
+
+  hljs.highlightAll();
+}
+
+// Could combine with sqli2 but not really worth it
+function sqli3() {
+  const student_id = document.getElementById('sqli3_student_id').value;
+
+  // TODO find and replace
+
+  const sqli3_query = document.getElementById('sqli3_query');
+  sqli3_query.textContent = `SELECT first_name, last_name, email FROM Students WHERE student_id = ${student_id}`;
+  sqli3_query.removeAttribute('data-highlighted');
 
   hljs.highlightAll();
 }
