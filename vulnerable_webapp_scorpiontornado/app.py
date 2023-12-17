@@ -184,7 +184,6 @@ def create_app(test_config=None):
             # TODO clean up nesting hell
             try:
                 with sqlite3.connect(app.config["SQLI2_DATABASE"]) as con:
-                    # TODO decide if they should enter the zid, or the full name & get back email
                     res = execute(
                         con,
                         f"SELECT first_name, last_name, email FROM Students WHERE student_id = {student_id}",
@@ -207,7 +206,7 @@ def create_app(test_config=None):
             print("res:", res)
 
         return render_template(
-            "sqli2.html",
+            "sqli2&3.html",
             heading="Student Lookup",
             chal_name="sqli2",
             task_desc="A benign student lookup system - you enter a student ID, and get back their name and email. What could go wrong? (Note: there are two flags in this challenge)",
