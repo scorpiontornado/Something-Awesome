@@ -67,12 +67,16 @@ def init_sqli2_db(db_path, schema_path, data_path):
     #         con.close()
 
 
+# TODO init SQLI 3 db
+
+
 def execute(con, query, parameters=()):
     # Moved database connection outside, as fetchone() is a Cursor method & Cursors close when their
     # parent connection does. Not closing would slow down the system over time.
     cur = con.cursor()
 
     try:
+        # Note - cur.execute() just returns the same cursor, cur, if it succeeds, so this is a bit redundant
         res = cur.execute(query, parameters)
     except Exception as e:
         # Invalid SQL query
