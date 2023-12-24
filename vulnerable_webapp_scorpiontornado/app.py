@@ -127,10 +127,37 @@ def create_app(test_config=None):
         session.pop("username", None)
         return redirect(url_for("sqli1"))
 
+    def get_student(dbname, student_id):
+        res = error = None
+
+        # TODO if we're already using a try/except, why bother with the custom execute function?
+        try:
+            with sqlite3.connect(app.config[dbname]) as con:
+                res = execute(
+                    con,
+                    f"SELECT first_name, last_name, email FROM Students WHERE student_id = {student_id}",
+                )
+        except Exception as e:
+            # res will remain None
+            print(e)
+
+        # res is either a sqlite3.Cursor object if the query was valid, else None
+        if res:
+            # If res is populated with results, query is successful
+            res = res.fetchall()
+            if not res:
+                # No results for the query
+                error = "No students found"
+        else:
+            # Invalid query
+            error = "<strong>Error!</strong> Invalid SQL query"
+
+        print("get_student res:", res)  #! debug. TODO - better logging throughout
+        return res, error
+
     # COMP6841 SQLI pre-reading: https://youtu.be/bAhvzXfuhg8
     @app.route("/sqli2", methods=["GET", "POST"])
     def sqli2():
-        error = None
         hints = [
             "As always, first try and use the system normally. Next, try and break it!",
             "Try entering a student ID that doesn't exist, nothing, or a single quote <code>'</code> into the student ID field. What does this tell us about the system?",
@@ -176,51 +203,68 @@ def create_app(test_config=None):
             #   - UNION with sqlite_master to find column names
             #   - UNION with table names
         ]
-        res = None
 
         if request.method == "POST":
             student_id = request.form.get("student_id")
-
-            # TODO clean up nesting hell
-            try:
-                with sqlite3.connect(app.config["SQLI2_DATABASE"]) as con:
-                    # TODO decide if they should enter the zid, or the full name & get back email
-                    res = execute(
-                        con,
-                        f"SELECT first_name, last_name, email FROM Students WHERE student_id = {student_id}",
-                    )
-            except Exception as e:
-                # res will remain None
-                print(e)
-
-            # False = invalid query
-            if res:
-                # If res is populated with results, query is successful
-                res = res.fetchall()
-                if not res:
-                    # No results for the query
-                    error = "No students found"
-            else:
-                # Invalid query
-                error = "<strong>Error!</strong> Invalid SQL query"
-
-            print("res:", res)
+            res, error = get_student("SQLI2_DATABASE", student_id)
+        else:
+            res = error = None
 
         return render_template(
-            "sqli2.html",
+            "sqli2&3.html",
             heading="Student Lookup",
             chal_name="sqli2",
-            task_desc="A benign student lookup system - you enter a student ID, and get back their name and email. What could go wrong? (Note: there are two flags in this challenge)",
+            task_desc="A benign student lookup system - you enter a student ID (e.g. 1234567) and get back their name and email. What could go wrong? (Note: there are two flags in this challenge)",
             error=error,
             hints=hints,
             res=res,
         )
 
-    # TODO add two flags to sqli2 (one in students, one in marks)
+    @app.route("/sqli3", methods=["GET", "POST"])
+    def sqli3():
+        hints = [
+            "TODO",  # TODO
+            # MiXED CaSe and nested keywords (e.g. WHWHEREERE)
+            # E.g. 1 UnION SeLECT name,sql,1 FrOM sqlite_master WhERE type='table'
+            # Or 1 UNUNIONION SESELECTLECT name,sql,1 FRFROMOM sqlite_master WHWHEREERE type='table'
+            # (Note because of the order of the "WAF", UNUNIONION, ununionion, and unUNIONion will work but UNunionION won't)
+        ]
 
-    # TODO If request.method == "POST", then get inputs from form, execute(), then pass fetchall() into render_template
-    # (For get, this variable will just start as None like I did with error in sqli1)
-    # Still want to get error - invalid SQL query, and no results
+        if request.method == "POST":
+            student_id = request.form.get("student_id")
+
+            # From quoccabank sqli3
+            if student_id is not None:
+                # super powerful WAF
+                for bad in [
+                    "union",
+                    "select",
+                    "from",
+                    "where",
+                    "UNION",
+                    "SELECT",
+                    "FROM",
+                    "WHERE",
+                ]:
+                    student_id = student_id.replace(bad, "")
+
+                print("student_id:", student_id)  #! debug
+
+            res, error = get_student(
+                "SQLI2_DATABASE", student_id
+            )  # TODO change to SQLI3_DATABASE and make new flag
+        else:
+            res = error = None
+
+        return render_template(
+            "sqli2&3.html",
+            heading="Student Lookup Strikes Back!",
+            chal_name="sqli3",
+            task_desc="The developers have grown wary to your SQL injection attacks, so have added a blacklist! They've overlooked something though...",
+            error=error,
+            hints=hints,
+            res=res,
+        )
 
     ### Resources
 

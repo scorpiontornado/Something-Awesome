@@ -9,6 +9,7 @@ import sqlite3
 # Currently only used for sqli1.
 def insecure_login(username, password, db_path):
     # "with" will auto-close the connection
+    # TODO what if error while connecting? Might just get rid of the execute function tbh
     with sqlite3.connect(db_path) as con:
         #! VULNERABLE TO SQLI - should use placeholders instead of string formatting:
         # https://docs.python.org/3/library/sqlite3.html#sqlite3-placeholders
@@ -21,5 +22,6 @@ def insecure_login(username, password, db_path):
             con,
             f"SELECT username FROM Users WHERE username='{username}' AND password='{password}'",
         )
+        # res is either a sqlite3.Cursor object if the query was valid, else None
 
         return res.fetchone() if res else False
