@@ -165,6 +165,7 @@ cython_debug/
 ### Extra files
 .DS_Store
 config.py
+*.code-workspace
 
 # https://flask.palletsprojects.com/en/3.0.x/tutorial/layout/
 .venv/
