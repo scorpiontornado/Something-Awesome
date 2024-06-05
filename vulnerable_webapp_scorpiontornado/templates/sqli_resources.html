@@ -1,3 +1,21 @@
+<!-- Something Awesome (AKA Vulnerable Webapp, nlangford-vulnerable-webapp or nlangford-sqli)
+An intentionally vulnerable web-app, as a teaching tool for cybersecurity.
+Copyright (C) 2024  Nicholas Langford
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
+
+
 {% extends "base.html" %}
 
 {% block content %}
@@ -9,7 +27,7 @@
       It refers to when an attacker submits maliciously crafted inputs called "payloads" in order to modify the SQL query executed by the web application, and thus exert control over its database.
       This can have disastrous consequences - depending on the severity of the vulnerability, it can allow the attacker to bypass authentication, retrieve, insert, update and delete data.
     </p>
-    
+
     <h2 class="mb-3">Prevention</h2>
     <p>
       A naive approach to preventing SQL injection is blacklists - where key SQL keywords (like <code>SELECT</code>, <code>UNION</code>, or <code>1=1</code>) are banned.

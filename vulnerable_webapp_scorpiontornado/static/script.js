@@ -1,25 +1,20 @@
-// const sqli1_user_in = document.getElementById("sqli1_form_username");
-// const sqli1_user_out = document.getElementById("sqli1_query_username");
-// sqli1_user_in.addEventListener("input", (e) => {
-//   sqli1_user_out.textContent = sqli1_user_in.textContent;
-// });
+// Something Awesome (AKA Vulnerable Webapp, nlangford-vulnerable-webapp or nlangford-sqli)
+// An intentionally vulnerable web-app, as a teaching tool for cybersecurity.
+// Copyright (C) 2024  Nicholas Langford
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-// const sqli1_pass_in = document.getElementById("sqli1_form_password");
-// const sqli1_pass_out = document.getElementById("sqli1_query_password");
-// sqli1_pass_in.addEventListener("input", (e) => {
-//   sqli1_pass_out.textContent = sqli1_pass_in.textContent;
-// });
-
-/* -------------------- */
-
-// Mirrors the contents of the form input in_id to the element out_id.
-// function mirror(in_id, out_id) {
-//   console.log(in_id, out_id);
-//   document.getElementById(out_id).textContent = document.getElementById(in_id).value;
-//   hljs.highlightAll();
-// }
-
-/* Stage-specific functions */
 
 function sqli1() {
   const username = document.getElementById('sqli1_form_username').value;
@@ -30,7 +25,7 @@ function sqli1() {
   sqli1_query.removeAttribute('data-highlighted');
 
   hljs.highlightAll();
-} 
+}
 
 function sqli2() {
   const student_id = document.getElementById('sqli2_student_id').value;

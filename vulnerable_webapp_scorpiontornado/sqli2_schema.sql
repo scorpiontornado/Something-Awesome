@@ -1,3 +1,21 @@
+-- Something Awesome (AKA Vulnerable Webapp, nlangford-vulnerable-webapp or nlangford-sqli)
+-- An intentionally vulnerable web-app, as a teaching tool for cybersecurity.
+-- Copyright (C) 2024  Nicholas Langford
+--
+-- This program is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation, either version 3 of the License, or
+-- (at your option) any later version.
+--
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+--
+-- You should have received a copy of the GNU General Public License
+-- along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
 -- Note - this file should be hidden from CTF-doers. Figuring out the database schema is part of the challenge.
 -- Read ahead at your own risk, but know that you probably won't get the SQL schema in real life, so you're
 -- not helping yourself if you choose to cheat. If you do, please don't spoil the challenge for others.
